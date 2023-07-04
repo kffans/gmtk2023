@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : Entity
 {
-    public float speed = 5f; 
+    void Start()
+    {
+        Speed = 400f;        
+    }
+    
 
     void Update()
     {
-        
+
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector2 movement = new Vector3(moveHorizontal, moveVertical);
-        transform.Translate(movement * speed * Time.deltaTime);
+        transform.Translate(movement * Speed * Time.deltaTime);
     }
 }
