@@ -764,4 +764,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Expierience: 0
   Health: 0
-  Speed: 0
+  Speed: 100
+  TargetObject: {fileID: 791604171}
+  thisRigidBody: {fileID: 1340965477}
