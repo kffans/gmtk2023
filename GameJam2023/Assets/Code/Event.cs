@@ -4,7 +4,9 @@ using System.Collections;
 
 public class Event : MonoBehaviour
 {
-    private static Canvas Canvas;
+    public static Event ThisEvent;
+	
+	private static Canvas Canvas;
 	private static int CamCount = 1;
 	public static Camera[] Cam = new Camera[CamCount];
 	//Cam[0] - Main Camera
@@ -16,6 +18,7 @@ public class Event : MonoBehaviour
 	public static Vector3 CanvasVectorHalved;
 	
 	public void Start(){
+		ThisEvent = this;
 		Application.targetFrameRate = FrameRate;
 		EventInit();
 		SetCameras();
@@ -55,5 +58,36 @@ public class Event : MonoBehaviour
 
 		if(Cam[0].enabled) Canvas.worldCamera = Cam[0];
 		else Canvas.worldCamera = Cam[CamID];
+	}
+	
+	
+	
+	public static void Fade(GameObject objectImage, int durationInFrames, int fadeDirection) //example: Fade(this.gameObject, 60, -1); -object becomes transparent after 60 frames (1 second)
+	{ 																						//fadeDirection is either -1 or 1
+		ThisEvent.StartCoroutine(Event.FadeCoroutine(objectImage, durationInFrames, fadeDirection));
+	}
+	
+	private static IEnumerator FadeCoroutine(GameObject objectImage, int time, int direction){
+		Color colorDiff = new Color(0f,0f,0f,1f/time);
+		
+		if(objectImage.GetComponent<Image>() != null){
+			Image fadeImage = objectImage.GetComponent<Image>();
+			for(int i=0; i<=time; i++){
+				fadeImage.color += direction * colorDiff;
+				if(direction == -1 && fadeImage.color.a==0) break;
+				if(direction == 1  && fadeImage.color.a==255) break;
+				yield return null;
+			}
+		}
+		else if(objectImage.GetComponent<RawImage>() != null){
+			RawImage fadeImage = objectImage.GetComponent<RawImage>();
+			for(int i=0; i<=time; i++){
+				fadeImage.color += direction * colorDiff;
+				if(direction == -1 && fadeImage.color.a==0) break;
+				if(direction == 1  && fadeImage.color.a==255) break;
+				yield return null;
+			}
+		}
+		yield return null;
 	}
 }
