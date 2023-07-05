@@ -11,6 +11,7 @@ public class Enemy : Entity
     {
         Debug.Log("Dupa");
         thisRigidBody = this.GetComponent<Rigidbody2D>();
+		Event.Fade(this.gameObject, 60, 1);
     }
 
     void FixedUpdate()
