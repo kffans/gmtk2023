@@ -5,56 +5,55 @@ using TMPro;
 
 public class Player : Entity
 {
-    public TextMeshProUGUI HealthText;
-    public TextMeshProUGUI ScoreText;
-    Rigidbody2D ThisRigidbody;
-    public int Score = 0;
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI scoreText;
+    Rigidbody2D thisRigidbody;
+    public int score = 0;
 
     void Start()
     {
-        ThisRigidbody = GetComponent<Rigidbody2D>();
-        Speed = 400f;
-        Health = 100;
+        thisRigidbody = GetComponent<Rigidbody2D>();
+        speed = 400f;
+        health = 100;
+        StartCoroutine(ScoreCoroutine(scoreText,score));
+        CheckHealth(healthText, health);
     }
 
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        ThisRigidbody.MovePosition(ThisRigidbody.position + movement * Speed * Time.fixedDeltaTime);
-
-        CheckHealth(HealthText, Health);
+        thisRigidbody.MovePosition(thisRigidbody.position + movement * speed * Time.fixedDeltaTime);
     }
 
-    void LateUpdate() 
-    {
-        Score += 1;
-        AddScore(ScoreText, Score);
-    }
-
-    void CheckHealth(TextMeshProUGUI healthText, int health)
+    public void CheckHealth(TextMeshProUGUI healthText, int health)
     {
         healthText.text = "Health: " + health.ToString();
     }
 
-    void AddScore(TextMeshProUGUI scoreText, int score)
+    public IEnumerator ScoreCoroutine(TextMeshProUGUI scoreText, int score)
     {
-        scoreText.text = "Score: " + score.ToString();
+        while(true)
+        {
+            for(int i=0; i<=240; i++)
+            {
+                yield return null;
+            }
+            score += 1;
+            scoreText.text = "Score: " + score.ToString();
+        }
     }
 
-    void RemoveHealth(int health)
-    {
-        Health -=1;
-    }
+    
 
     // called when the cube hits the floor
-    void OnCollisionStay2D(Collision2D col)
+    private void OnCollisionStay2D(Collision2D col)
     {
-        if(col.gameObject.name.Contains("Enemy"))
+        if(col.gameObject.GetComponent<Enemy>() != null)
         {
-            RemoveHealth(1);
+            health -= 1;
+            CheckHealth(healthText, health);
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    public int Expierience;
-    public int Health;
-    public float Speed;
+    public int experience;
+    public int health;
+    public float speed;
 }

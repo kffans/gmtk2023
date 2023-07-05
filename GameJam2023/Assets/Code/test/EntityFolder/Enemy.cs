@@ -4,29 +4,35 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    public GameObject TargetObject; 
-    public Rigidbody2D thisRigidBody;
+    private GameObject targetObject;
+    private Rigidbody2D thisRigidBody;
    
     void Start()
     {
-        Debug.Log("Dupa");
+        targetObject = GameObject.Find("Player");
+        speed = 250;
         thisRigidBody = this.GetComponent<Rigidbody2D>();
-		Event.Fade(this.gameObject, 60, 1);
+        Event.Fade(this.gameObject, 60, 1);
+    }
+
+    void Update()
+    {
+        
     }
 
     void FixedUpdate()
     {
-        if (TargetObject != null)
+        if (targetObject != null)
         {
-            Follow(TargetObject);
+            Follow(targetObject);
         }
     }
 
     void Follow(GameObject myObject)
     {
-        Vector2 Direction = myObject.transform.position - transform.position;
-        Vector2 NormalizedDirection = Direction.normalized;
+        Vector2 direction = myObject.transform.position - transform.position;
+        Vector2 normalizedDirection = direction.normalized;
        //transform.position = NewPosition;
-        thisRigidBody.MovePosition(thisRigidBody.position + NormalizedDirection * Speed * Time.fixedDeltaTime);// * Speed * Time.deltaTime);
+        thisRigidBody.MovePosition(thisRigidBody.position + normalizedDirection * speed * Time.fixedDeltaTime);// * Speed * Time.deltaTime);
     }
 }
