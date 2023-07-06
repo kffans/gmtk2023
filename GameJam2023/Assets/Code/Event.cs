@@ -64,7 +64,8 @@ public class Event : MonoBehaviour
 	
 	public static void Fade(GameObject objectImage, int durationInFrames, int fadeDirection) //example: Fade(this.gameObject, 60, -1); -object becomes transparent after 60 frames (1 second)
 	{ 																						//fadeDirection is either -1 or 1
-		ThisEvent.StartCoroutine(Event.FadeCoroutine(objectImage, durationInFrames, fadeDirection));
+		if(objectImage.GetComponent<Image>() != null || objectImage.GetComponent<RawImage>() != null)
+			ThisEvent.StartCoroutine(Event.FadeCoroutine(objectImage, durationInFrames, fadeDirection));
 	}
 	
 	private static IEnumerator FadeCoroutine(GameObject objectImage, int time, int direction){

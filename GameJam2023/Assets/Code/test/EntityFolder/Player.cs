@@ -17,6 +17,7 @@ public class Player : Entity
         health = 100;
         StartCoroutine(ScoreCoroutine(scoreText,score));
         CheckHealth(healthText, health);
+		Event.Fade(this.gameObject, 60, -1);
     }
 
     void FixedUpdate()
