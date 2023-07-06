@@ -19,6 +19,11 @@ public class Event : MonoBehaviour
 	public static int CanvasHeight = 1080;
 	public static int CanvasWidth = 1920;
 	public static Vector3 CanvasVectorHalved;
+	public GameObject optionsObject;
+	GameObject canvasObject;
+	public GameObject buttonObject;
+
+	bool menuON = false;
 	
 	void Start()
 	{
@@ -26,16 +31,47 @@ public class Event : MonoBehaviour
 		Application.targetFrameRate = FrameRate;
 		EventInit();
 		SetCameras();
+		optionsObject = GameObject.Find("Options").gameObject;
+		buttonObject = GameObject.Find("Back").gameObject;
+		canvasObject = this.gameObject;
+
 	}
 
     void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Escape))
-			Application.Quit();
+		//if(Input.GetKeyDown(KeyCode.Escape))
+		//	Application.Quit();
 		//someHeldObject.position = Input.mousePosition - CanvasVectorHalved; //
+		if (Input.GetKeyDown(KeyCode.Escape) && !menuON)
+		{
+			menuON = true;
+			StopGame();
+		}
+		else if (Input.GetKeyDown(KeyCode.Escape) && menuON)
+		{
+			menuON = false;
+			PlayGame();
+		}
+        buttonObject.GetComponent<Button>().onClick.AddListener(PlayGame);
+        
     }
 	
-	
+	void StopGame()
+    {
+        Time.timeScale = 0f; 
+        Debug.Log("Gra została zatrzymana!");
+		optionsObject.SetActive(true);
+		canvasObject.SetActive(false);
+    }
+
+	void PlayGame()
+	{
+		Time.timeScale = 1;
+		Debug.Log("Gra została uruchomiona!");
+		optionsObject.SetActive(false);
+		this.canvasObject.SetActive(true);
+	}
+
 	
 	private static void EventInit()
 	{
