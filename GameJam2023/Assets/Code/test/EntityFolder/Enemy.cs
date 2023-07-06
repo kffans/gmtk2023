@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : Entity
 {
@@ -9,15 +10,13 @@ public class Enemy : Entity
    
     void Start()
     {
-        targetObject = GameObject.Find("Player");
+        
+		targetObject = GameObject.Find("Player");
         speed = 250;
         thisRigidBody = this.GetComponent<Rigidbody2D>();
-        Event.Fade(this.gameObject, 60, 1);
-    }
 
-    void Update()
-    {
-        
+        Event.Fade(this.gameObject, 60, 1);
+		
     }
 
     void FixedUpdate()
