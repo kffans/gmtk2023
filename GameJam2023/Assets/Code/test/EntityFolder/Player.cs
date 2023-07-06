@@ -17,7 +17,8 @@ public class Player : Entity
         health = 100;
         StartCoroutine(ScoreCoroutine(scoreText,score));
         CheckHealth(healthText, health);
-		Event.Fade(this.gameObject, 60, -1);
+		Event.Move(GameObject.Find("MainCamera"), 100f, 60, new Vector2(2,-1).normalized);
+		Event.Move(this.gameObject, 100f, 60, Vector2.left); 
     }
 
     void FixedUpdate()
