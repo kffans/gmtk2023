@@ -43,14 +43,17 @@ public class Player : Entity
             {
                 do{ yield return null; }while(Event.CheckPause());
             }
-			Event.Move(this.gameObject, 300f, 160, Vector2.left); 
+			//Event.Move(this.gameObject, 300f, 160, Vector2.left); 
             score += 1;
             scoreText.text = "Score: " + score.ToString();
 			//Event.RotateTo(this.GetComponent<Transform>(), 0f, new Vector3(2f,-1f)); 
         }
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        MusicController.PlaySound("heat");
+    }
 
     // called when the cube hits the floor
     private void OnCollisionStay2D(Collision2D col)
@@ -59,6 +62,7 @@ public class Player : Entity
         {
             health -= 1;
             CheckHealth(healthText, health);
+          
         }
     }
 

@@ -5,7 +5,7 @@ public class MusicController : MonoBehaviour
 {
     private AudioSource audioSource;
     public Slider volumeSlider;
-
+    
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -31,6 +31,15 @@ public class MusicController : MonoBehaviour
     public void StopMusic()
     {
         audioSource.Stop();
+    }
+
+    public static void PlaySound(string soundName)
+    {
+        AudioClip resourceSound = Resources.Load<AudioClip>($"Audio/Sounds/{soundName}");
+        if (resourceSound != null)
+        {
+            AudioSource.PlayClipAtPoint(resourceSound, Vector3.zero);
+        }
     }
 
     public void SetVolume(float volume)
