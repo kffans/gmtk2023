@@ -12,8 +12,17 @@ public class MusicController : MonoBehaviour
         SetVolume(50);
         PlayMusic();
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+        DontDestroyOnLoad(this.gameObject);
     }
 
+    void Update()
+    {
+        if (volumeSlider == null)
+        {
+            volumeSlider = GameObject.Find("Volume").GetComponent<Slider>();
+            volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+        }
+    }
     public void PlayMusic()
     {
         audioSource.Play();
