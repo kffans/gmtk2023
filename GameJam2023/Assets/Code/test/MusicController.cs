@@ -6,7 +6,7 @@ public class MusicController : MonoBehaviour
     private AudioSource audioSource;
     public Slider volumeSlider;
     
-    void Start()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         SetVolume(50);

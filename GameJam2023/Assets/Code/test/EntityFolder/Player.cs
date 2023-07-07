@@ -20,6 +20,7 @@ public class Player : Entity
 		//Event.Move(GameObject.Find("MainCamera"), 100f, 60, new Vector2(2,-1).normalized);
 		
 		//Event.Rotate(this.gameObject, 180f, 60, Vector2.zero); 
+		Event.RotateTo(this.GetComponent<Transform>(), 0f, new Vector3(2f,-1f)); 
     }
 
     void FixedUpdate()
@@ -46,7 +47,7 @@ public class Player : Entity
 			//Event.Move(this.gameObject, 300f, 160, Vector2.left); 
             score += 1;
             scoreText.text = "Score: " + score.ToString();
-			//Event.RotateTo(this.GetComponent<Transform>(), 0f, new Vector3(2f,-1f)); 
+			
         }
     }
 

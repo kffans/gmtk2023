@@ -15,6 +15,7 @@ public class Event : MonoBehaviour
 	public static bool isPaused = false;
 	public static bool isPausable = true;
 	public GameObject pauseObject;
+	private Quaternion rotate;
 	
 	private static float[] coeffs = new float[] { 4f, 0f, 1f, -1f }; //Move: coefficients of f(x)
 	private static float endPoint = 2f; //Move: a point where we want the animation to end (e.g. f(x) intersects the x-axis)
@@ -199,12 +200,15 @@ public class Event : MonoBehaviour
 	{
 		objectTransform.Rotate(0f,0f,val);
 	}
-	public static void RotateTo(Transform objectTransform, float val, Vector3 vectorDir)
+	public static void RotateTo(Transform objectTransform, float val, Vector2 vectorDirection)
 	{
-		//if(vectorDir != Vector3.zero)
-			//objectTransform.rotation = Quaternion.LookRotation(vectorDir.normalized);
-		//else
-			objectTransform.rotation = Quaternion.Euler(0, 90, 0);
+		if(vectorDirection != Vector2.zero)
+		{
+			Vector3 vectorDir = vectorDirection;
+			objectTransform.rotation = Quaternion.LookRotation(vectorDir.normalized); 
+		}
+		else
+			objectTransform.rotation = Quaternion.Euler(0f, 0f, val);
 	}
 ///////////////////////////////
 
