@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -6,10 +7,14 @@ public class Event : MonoBehaviour
 {
     public static Event ThisEvent;
 	
-	private static Canvas Canvas;
+	private static Canvas ThisCanvas;
 	private static int CamCount = 1;
 	public static Camera[] Cam = new Camera[CamCount];
 	//Cam[0] - Main Camera
+	
+	public static bool isPaused = false;
+	public static bool isPausable = true;
+	public GameObject pauseObject;
 	
 	private static float[] coeffs = new float[] { 4f, 0f, 1f, -1f }; //Move: coefficients of f(x)
 	private static float endPoint = 2f; //Move: a point where we want the animation to end (e.g. f(x) intersects the x-axis)
@@ -19,68 +24,56 @@ public class Event : MonoBehaviour
 	public static int CanvasHeight = 1080;
 	public static int CanvasWidth = 1920;
 	public static Vector3 CanvasVectorHalved;
-	public GameObject optionsObject;
-	GameObject canvasObject;
-	public GameObject buttonObject;
-
-	bool menuON = false;
 	
 	void Start()
 	{
+		DontDestroyOnLoad(this.gameObject);
 		ThisEvent = this;
 		Application.targetFrameRate = FrameRate;
 		EventInit();
 		SetCameras();
-		optionsObject = GameObject.Find("Options").gameObject;
-		buttonObject = GameObject.Find("Back").gameObject;
-		canvasObject = this.gameObject;
-
+		//someHeldObject.position = Input.mousePosition - CanvasVectorHalved; //in update, when holding an object with mouse
 	}
-
-    void Update()
+	
+	void Update()
 	{
-		//if(Input.GetKeyDown(KeyCode.Escape))
-		//	Application.Quit();
-		//someHeldObject.position = Input.mousePosition - CanvasVectorHalved; //
-		if (Input.GetKeyDown(KeyCode.Escape) && !menuON)
+		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			menuON = true;
-			StopGame();
+			PauseGame();
 		}
-		else if (Input.GetKeyDown(KeyCode.Escape) && menuON)
-		{
-			menuON = false;
-			PlayGame();
-		}
-        buttonObject.GetComponent<Button>().onClick.AddListener(PlayGame);
-        
     }
 	
-	void StopGame()
-    {
-        Time.timeScale = 0f; 
-        Debug.Log("Gra została zatrzymana!");
-		optionsObject.SetActive(true);
-		canvasObject.SetActive(false);
-    }
-
-	void PlayGame()
+	public void PauseGame()
 	{
-		Time.timeScale = 1;
-		Debug.Log("Gra została uruchomiona!");
-		optionsObject.SetActive(false);
-		this.canvasObject.SetActive(true);
+		if(isPausable){
+			isPaused = !isPaused;
+			if(isPaused)
+			{
+				Time.timeScale = 1f;
+			}
+			else
+			{
+				Time.timeScale = 0f;
+			}
+			pauseObject.SetActive(!isPaused);
+		}
 	}
-
 	
 	private static void EventInit()
 	{
 		CanvasVectorHalved = new Vector3(Event.CanvasWidth/2, Event.CanvasHeight/2, 0);
-		Canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+		ThisCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 		
 		Cam[0] = GameObject.Find("MainCamera").GetComponent<Camera>();
 
 		//somethingPrefab = Resources.Load("Prefabs/something") as GameObject;
+	}
+	
+	public static bool CheckPause(){
+		if(isPausable){
+			return !isPaused;
+		}
+		return false;
 	}
 	
 	
@@ -93,7 +86,7 @@ public class Event : MonoBehaviour
 			Cam[i].gameObject.SetActive(false);
 			Cam[i].enabled = false;
 		}
-		Canvas.worldCamera = Cam[0];
+		ThisCanvas.worldCamera = Cam[0];
 	}
 	public static void ChangeCameras(int CamID) //changes between specified camera with certain id, to main camera; back and forth
 	{
@@ -103,8 +96,8 @@ public class Event : MonoBehaviour
 		Cam[CamID].gameObject.SetActive(!Cam[CamID].enabled);
 		Cam[CamID].enabled = !Cam[CamID].enabled;
 
-		if(Cam[0].enabled) Canvas.worldCamera = Cam[0];
-		else Canvas.worldCamera = Cam[CamID];
+		if(Cam[0].enabled) ThisCanvas.worldCamera = Cam[0];
+		else ThisCanvas.worldCamera = Cam[CamID];
 	}
 ///////////////////////////////
 	
@@ -128,7 +121,8 @@ public class Event : MonoBehaviour
 				fadeImage.color += direction * colorDiff;
 				if(direction == -1 && fadeImage.color.a==0) break;
 				if(direction == 1  && fadeImage.color.a==255) break;
-				yield return null;
+				
+				do{ yield return null; }while(CheckPause());
 			}
 		}
 		else if(objectImage.GetComponent<RawImage>() != null)
@@ -139,47 +133,78 @@ public class Event : MonoBehaviour
 				fadeImage.color += direction * colorDiff;
 				if(direction == -1 && fadeImage.color.a==0) break;
 				if(direction == 1  && fadeImage.color.a==255) break;
-				yield return null;
+				
+				do{ yield return null; }while(CheckPause());
 			}
 		}
-		yield return null;
 	}
 ///////////////////////////////
 	
+	
+	
+	
+///////////////////////////////
+	private static IEnumerator AnimCoroutine(Transform objectTransform, float val, int time, Vector3 vectorDir, Action<Transform, float, Vector3> function)
+	{
+		float n = endPoint/time;
+		
+		float integralFT = 0f;
+		for(int i=0; i<coeffs.Length; i++)
+			integralFT += coeffs[i]/(i+1) * Mathf.Pow(n*time, i+1);
+		
+		float m = val/integralFT;
+		
+		float integralDiff = 0f;
+		for(int j = 0; j<time; j++)
+		{
+			for(int i=0; i<coeffs.Length; i++)
+				integralDiff += coeffs[i]/(i+1) * (Mathf.Pow(n*(j+1), i+1) - Mathf.Pow(n*j, i+1));
+			integralDiff *= m;
+			
+			function(objectTransform, integralDiff, vectorDir);
+			
+			integralDiff = 0f;
+			do{ yield return null; }while(CheckPause());
+		}
+	}
+	public static void AnimFunction(float[] newCoeffs, float newEndPoint) //example: Event.AnimFunction(new float[] { 0f, 0f, 4f, -1f }, 4f); -changes to a function:  0 + 0*x + 4*x^2 + (-1)*x^3
+	{
+		coeffs = newCoeffs;
+		endPoint = newEndPoint;
+	}
+///////////////////////////////
 	
 	
 ///////////////////////////////
 	public static void Move(GameObject objectTransform, float distance, int durationInFrames, Vector2 vectorDirection)
 	{
 		Vector3 vectorDir = vectorDirection;
-		ThisEvent.StartCoroutine(Event.MoveCoroutine(objectTransform.GetComponent<Transform>(), distance, durationInFrames, vectorDir));
+		ThisEvent.StartCoroutine(Event.AnimCoroutine(objectTransform.GetComponent<Transform>(), distance, durationInFrames, vectorDir, Event.MoveBy));
 	}
-	public static void MoveFunction(float[] newCoeffs, float newEndPoint) //example: Event.MoveFunction(new float[] { 0f, 0f, 4f, -1f }, 4f); -changes to a function:  0 + 0*x + 4*x^2 + (-1)*x^3
+	public static void MoveBy(Transform objectTransform, float val, Vector3 vectorDir)
 	{
-		coeffs = newCoeffs;
-		endPoint = newEndPoint;
+		objectTransform.position += val * vectorDir;
 	}
-	private static IEnumerator MoveCoroutine(Transform objectTransform, float d, int t, Vector3 vectorDir)
+///////////////////////////////
+
+
+///////////////////////////////
+	public static void Rotate(GameObject objectTransform, float angle, int durationInFrames, Vector2 vectorDirection)
 	{
-		float n = endPoint/t;
-		
-		float integralFT = 0f;
-		for(int i=0; i<coeffs.Length; i++)
-			integralFT += coeffs[i]/(i+1) * Mathf.Pow(n*t, i+1);
-		
-		float m = d/integralFT;
-		
-		float integralDiff = 0f;
-		for(int j = 0; j<t; j++)
-		{
-			for(int i=0; i<coeffs.Length; i++)
-				integralDiff += coeffs[i]/(i+1) * (Mathf.Pow(n*(j+1), i+1) - Mathf.Pow(n*j, i+1));
-			integralDiff *= m;
-			
-			objectTransform.position += vectorDir * integralDiff;
-			integralDiff = 0f;
-			yield return null;
-		}
+		Vector3 vectorDir = vectorDirection;
+		ThisEvent.StartCoroutine(Event.AnimCoroutine(objectTransform.GetComponent<Transform>(), angle, durationInFrames, vectorDir, Event.RotateBy));
+	}
+	public static void RotateBy(Transform objectTransform, float val, Vector3 vectorDir)
+	{
+		//objectTransform.Rotate(new Vector3(0,0,val));
+		objectTransform.Rotate(0f,0f,val);
+	}
+	public static void RotateTo(Transform objectTransform, float val, Vector3 vectorDir)
+	{
+		//if(vectorDir != Vector3.zero)
+			//objectTransform.rotation = Quaternion.LookRotation(vectorDir.normalized);
+		//else
+			objectTransform.Rotate(0f,0f,val);
 	}
 ///////////////////////////////
 
