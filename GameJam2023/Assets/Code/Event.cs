@@ -25,7 +25,7 @@ public class Event : MonoBehaviour
 	public static int CanvasWidth = 1920;
 	public static Vector3 CanvasVectorHalved;
 	
-	void Start()
+	void Awake()
 	{
 		DontDestroyOnLoad(this.gameObject);
 		ThisEvent = this;
@@ -192,11 +192,11 @@ public class Event : MonoBehaviour
 	public static void Rotate(GameObject objectTransform, float angle, int durationInFrames, Vector2 vectorDirection)
 	{
 		Vector3 vectorDir = vectorDirection;
+		Debug.Log(vectorDir);
 		ThisEvent.StartCoroutine(Event.AnimCoroutine(objectTransform.GetComponent<Transform>(), angle, durationInFrames, vectorDir, Event.RotateBy));
 	}
 	public static void RotateBy(Transform objectTransform, float val, Vector3 vectorDir)
 	{
-		//objectTransform.Rotate(new Vector3(0,0,val));
 		objectTransform.Rotate(0f,0f,val);
 	}
 	public static void RotateTo(Transform objectTransform, float val, Vector3 vectorDir)
@@ -204,7 +204,7 @@ public class Event : MonoBehaviour
 		//if(vectorDir != Vector3.zero)
 			//objectTransform.rotation = Quaternion.LookRotation(vectorDir.normalized);
 		//else
-			objectTransform.Rotate(0f,0f,val);
+			objectTransform.rotation = Quaternion.Euler(0, 90, 0);
 	}
 ///////////////////////////////
 
