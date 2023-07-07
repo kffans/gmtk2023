@@ -18,7 +18,7 @@ public class Player : Entity
         StartCoroutine(ScoreCoroutine(scoreText,score));
         CheckHealth(healthText, health);
 		//Event.Move(GameObject.Find("MainCamera"), 100f, 60, new Vector2(2,-1).normalized);
-		Event.Move(this.gameObject, 300f, 160, Vector2.left); 
+		
 		//Event.Rotate(this.gameObject, 180f, 60, Vector2.zero); 
     }
 
@@ -43,9 +43,10 @@ public class Player : Entity
             {
                 do{ yield return null; }while(Event.CheckPause());
             }
+			Event.Move(this.gameObject, 300f, 160, Vector2.left); 
             score += 1;
             scoreText.text = "Score: " + score.ToString();
-			Event.RotateTo(this.GetComponent<Transform>(), 0f, new Vector3(2f,-1f)); 
+			//Event.RotateTo(this.GetComponent<Transform>(), 0f, new Vector3(2f,-1f)); 
         }
     }
 

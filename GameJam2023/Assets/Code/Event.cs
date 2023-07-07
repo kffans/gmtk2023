@@ -49,13 +49,13 @@ public class Event : MonoBehaviour
 			isPaused = !isPaused;
 			if(isPaused)
 			{
-				Time.timeScale = 1f;
+				Time.timeScale = 0f;
 			}
 			else
 			{
-				Time.timeScale = 0f;
+				Time.timeScale = 1f;
 			}
-			pauseObject.SetActive(!isPaused);
+			pauseObject.SetActive(isPaused);
 		}
 	}
 	
@@ -70,10 +70,10 @@ public class Event : MonoBehaviour
 	}
 	
 	public static bool CheckPause(){
-		if(isPausable){
-			return !isPaused;
-		}
-		return false;
+		if(isPausable)
+			return isPaused;
+		else
+			return false;
 	}
 	
 	
