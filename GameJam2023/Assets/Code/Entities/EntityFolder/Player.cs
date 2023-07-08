@@ -11,6 +11,8 @@ public class Player : Entity
 
     private bool isFlipped = false;
 
+    private bool isFighting = false;
+
 
     void Start()
     {
@@ -28,29 +30,36 @@ public class Player : Entity
     {
         float dirX = Input.GetAxisRaw("Horizontal");
         float dirY = Input.GetAxisRaw("Vertical");
-        thisRigidbody.velocity = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
-        
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(!isFighting)
         {
-            thisRigidbody.velocity = new Vector2(0,100);
+            
+            thisRigidbody.velocity = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
+        
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                thisRigidbody.velocity = new Vector2(0,100);
+            }
+
+       
+
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+            Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+            thisRigidbody.MovePosition(thisRigidbody.position + movement * speed * Time.fixedDeltaTime * Event.IsometricVector);
         }
+        
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        thisRigidbody.MovePosition(thisRigidbody.position + movement * speed * Time.fixedDeltaTime * Event.IsometricVector);
-
-        if (dirY >0f)
+        if (dirY >0f && !isFighting)
         {
             anim.SetBool("running",true);
             
         }
-        else if(dirY <0f)
+        else if(dirY <0f && !isFighting)
         {
             anim.SetBool("running", true);
         }
 
-        if (dirX > 0f)
+        if (dirX > 0f && !isFighting)
         {
             anim.SetBool("running", true);
             if (!isFlipped)
@@ -59,7 +68,7 @@ public class Player : Entity
                 isFlipped = true;
             }
         }
-        else if (dirX < 0f)
+        else if (dirX < 0f && !isFighting)
         {
             anim.SetBool("running", true);
             if (isFlipped)
@@ -74,6 +83,20 @@ public class Player : Entity
             anim.SetBool("running", false);
         }
         
+        if(Input.GetMouseButtonDown(0) && !isFighting)
+        {
+            anim.SetBool("running",false);
+            anim.SetBool("fighting",true);
+            isFighting = true;
+        }
+
+        if(Input.GetMouseButtonUp(0)  && isFighting )
+        {
+            anim.SetBool("running",true);
+            anim.SetBool("fighting",false);
+            isFighting= false;
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
