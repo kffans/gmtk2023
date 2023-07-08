@@ -8,7 +8,7 @@ public class Knight : Enemy
     void Start()
     {
         speed = 200f;
-		pushResistance = 300f;
+		pushResistance = 350f;
 		targetObject = GameObject.Find("Player");
         thisRigidbody = this.GetComponent<Rigidbody2D>();
 		
@@ -22,7 +22,7 @@ public class Knight : Enemy
         
 		if (targetObject != null && canFollow)
         {
-            Follow();
+			Follow();
         }
 		
     }

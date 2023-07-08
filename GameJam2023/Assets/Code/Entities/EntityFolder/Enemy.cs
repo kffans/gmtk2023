@@ -70,8 +70,8 @@ public abstract class Enemy : Entity
 	}
 	
 	public void PushedAway(){
-		WaitForFollow(60);
 		Vector2 direction = transform.position - GameObject.Find("Player").transform.position;
-		Event.Move(this.gameObject, pushResistance, 60, direction);
+		Event.Move(this.gameObject, pushResistance, 20, direction);
+		StartCoroutine(WaitForFollow(60));
 	}
 }

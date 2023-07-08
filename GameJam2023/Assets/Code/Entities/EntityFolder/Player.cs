@@ -5,7 +5,8 @@ using TMPro;
 
 public class Player : Entity
 {
-    private Animator anim;
+    [SerializeField] LayerMask whatIsEnemy;
+	private Animator anim;
 
     private bool isFlipped = false;
 
@@ -83,7 +84,7 @@ public class Player : Entity
 			if(dirX == 0f && dirY == 0f)
 				anim.SetBool("running", false);
         }
-		Event.Follow(this.gameObject);
+		Event.Follow(this.gameObject.transform);
     }
 	
 	private IEnumerator AttackCoroutine()
@@ -129,13 +130,30 @@ public class Player : Entity
 	
 	private IEnumerator FistAttack()
 	{
-		
 		GameObject fistEffect = Instantiate(fistAttackPrefab, effectsParent);
 		fistEffect.transform.position = this.transform.position;
-		if(isFlipped)
-			Event.FlipY(fistEffect.transform);
 		
-		for(int i=0; i<2; i++)
+		if(isFlipped){
+			Event.FlipY(fistEffect.transform);
+			fistEffect.transform.position += new Vector3(80f, 0f, 0f);
+		}
+		else{
+			fistEffect.transform.position -= new Vector3(80f, 0f, 0f);
+		}
+		
+		RectTransform fistEffectRect = fistEffect.GetComponent<RectTransform>();
+		fistEffectRect.pivot = new Vector2(0.5f, 0.5f);
+		
+		
+		
+		Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(fistEffect.transform.position, fistEffectRect.sizeDelta, 0, whatIsEnemy);
+		foreach (var currentEnemy in enemiesToDamage)
+		{
+			if(currentEnemy.gameObject.tag == "Enemy")
+				currentEnemy.gameObject.GetComponent<Enemy>().PushedAway();
+		}
+		
+		for(int i=0; i<4; i++)
 		{
 			do{ yield return null; } while(Event.CheckPause());
 		}

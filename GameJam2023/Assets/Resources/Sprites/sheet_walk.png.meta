@@ -130,8 +130,8 @@ TextureImporter:
       name: sheet_walk_0
       rect:
         serializedVersion: 2
-        x: 50
-        y: 53
+        x: 52
+        y: 54
         width: 610
         height: 660
       alignment: 9
@@ -151,8 +151,8 @@ TextureImporter:
       name: sheet_walk_1
       rect:
         serializedVersion: 2
-        x: 724
-        y: 48
+        x: 720
+        y: 51
         width: 610
         height: 660
       alignment: 0
@@ -172,8 +172,8 @@ TextureImporter:
       name: sheet_walk_2
       rect:
         serializedVersion: 2
-        x: 1426
-        y: 48
+        x: 1415
+        y: 51
         width: 610
         height: 660
       alignment: 0
@@ -193,8 +193,8 @@ TextureImporter:
       name: sheet_walk_3
       rect:
         serializedVersion: 2
-        x: 2125
-        y: 49
+        x: 2114
+        y: 51
         width: 610
         height: 660
       alignment: 0
@@ -215,7 +215,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2839
-        y: 51
+        y: 54
         width: 610
         height: 660
       alignment: 0
@@ -236,7 +236,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3615
-        y: 52
+        y: 54
         width: 610
         height: 660
       alignment: 0
@@ -256,8 +256,8 @@ TextureImporter:
       name: sheet_walk_6
       rect:
         serializedVersion: 2
-        x: 4382
-        y: 40
+        x: 4378
+        y: 45
         width: 610
         height: 660
       alignment: 0
@@ -277,8 +277,8 @@ TextureImporter:
       name: sheet_walk_7
       rect:
         serializedVersion: 2
-        x: 5120
-        y: 52
+        x: 5114
+        y: 57
         width: 610
         height: 660
       alignment: 0

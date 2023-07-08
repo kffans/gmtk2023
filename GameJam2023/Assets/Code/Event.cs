@@ -251,12 +251,11 @@ public class Event : MonoBehaviour
 		IsFollowable = true;
 	}
 
-	public static void Follow(GameObject playerObject)
+	public static void Follow(Transform targetObject)
 	{
 		if(IsFollowable)
 		{
-			Transform cameraTransform = Cam[0].transform;
-			cameraTransform.position = new Vector3(playerObject.transform.position.x, playerObject.transform.position.y, cameraTransform.position.z);
+			Cam[0].transform.position = targetObject.position;
 		}
 	
 	}
