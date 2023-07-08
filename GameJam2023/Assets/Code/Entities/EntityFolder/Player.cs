@@ -9,14 +9,15 @@ public class Player : Entity
     public TextMeshProUGUI scoreText;
     private Animator anim;
 
-    private SpriteRenderer spriteRenderer;
+    private bool isFlipped = false;
+
 
     void Start()
     {
         thisRigidbody = GetComponent<Rigidbody2D>();
         speed = 400f;
         anim = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        
 		//Event.Move(GameObject.Find("MainCamera"), 100f, 60, new Vector2(2,-1).normalized);
 		
 		//Event.Rotate(this.gameObject, 180f, 60, Vector2.zero); 
@@ -49,15 +50,23 @@ public class Player : Entity
             anim.SetBool("running", true);
         }
 
-        if (dirX >0f)
-        {
-            anim.SetBool("running",true);
-            spriteRenderer.flipX = false;
-        }
-        else if(dirX <0f)
+        if (dirX > 0f)
         {
             anim.SetBool("running", true);
-            Event.FlipY(this.GetComponent<Transform>());
+            if (!isFlipped)
+            {
+                Event.FlipY(this.GetComponent<Transform>());
+                isFlipped = true;
+            }
+        }
+        else if (dirX < 0f)
+        {
+            anim.SetBool("running", true);
+            if (isFlipped)
+            {
+                Event.FlipY(this.GetComponent<Transform>());
+                isFlipped = false;
+            }
         }
         
         if(dirX == 0f && dirY == 0f)
