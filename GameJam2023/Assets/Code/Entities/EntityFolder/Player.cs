@@ -53,7 +53,7 @@ public class Player : Entity
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        MusicController.PlaySound("heat");
+        Music.PlaySound("heat");
     }
 
     // called when the cube hits the floor
