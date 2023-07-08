@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class FistAttack : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter(Collision2D collision)
     {
+		Debug.Log(collision.gameObject.name);
 		if (collision.gameObject.tag == "Enemy")
         {
 			Debug.Log("aaa");
