@@ -8,16 +8,31 @@ public abstract class Enemy : Entity
 	public int health;
 	public bool canFollow= true;
 	public GameObject[] objectsToFollow;
-
+	private bool isFlipped = false;
    
 
     public void Follow()
 	{
+	    float dirX = transform.right.x;
+	    
         Vector2 direction = targetObject.transform.position - transform.position;
         Vector2 normalizedDirection = direction.normalized;
 		
-        thisRigidbody.MovePosition(thisRigidbody.position + normalizedDirection * speed * Time.fixedDeltaTime * Event.IsometricVector);// * Speed * Time.deltaTime);
+        
+		thisRigidbody.MovePosition(thisRigidbody.position + normalizedDirection * speed * Time.fixedDeltaTime * Event.IsometricVector);
+		// * Speed * Time.deltaTime);
+		if (dirX > 0f && !isFlipped)
+    	{
+			Event.FlipY(this.GetComponent<Transform>());
+			isFlipped = true;
+    	}
+    	else if (dirX < 0f && isFlipped)
+    	{
+			Event.FlipY(this.GetComponent<Transform>());
+			isFlipped = false;
+    	}
 	}
+
 	
 	public void SearchForTarget(GameObject[] objectsToFollow)
 	{
