@@ -1,18 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Peasant : MonoBehaviour
+public class Peasant : Enemy
 {
-    // Start is called before the first frame update
+	
+	// Start is called before the first frame update
     void Start()
     {
-        
+        speed = 400f;
+		targetObject = GameObject.Find("Player");
+        thisRigidbody = this.GetComponent<Rigidbody2D>();
+		
+		Event.Move(this.gameObject, 300f, 60, Vector2.up);
+		StartCoroutine(WaitForFollow(60));
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         
+		if (targetObject != null && canFollow)
+        {
+            Follow();
+        }
+		
     }
 }

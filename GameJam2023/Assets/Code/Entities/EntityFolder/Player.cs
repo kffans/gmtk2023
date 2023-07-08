@@ -12,6 +12,8 @@ public class Player : Entity
     private bool isFlipped = false;
 
     private bool isFighting = false;
+	private int attackCooldown;
+	private static int AttackCooldownValue = 40;
 
 
     void Start()
@@ -28,19 +30,20 @@ public class Player : Entity
 
     void FixedUpdate()
     {
-        float dirX = Input.GetAxisRaw("Horizontal");
+        if(attackCooldown != 0)
+			attackCooldown--;
+		
+		float dirX = Input.GetAxisRaw("Horizontal");
         float dirY = Input.GetAxisRaw("Vertical");
+		
         if(!isFighting)
         {
-            
             thisRigidbody.velocity = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
         
             if(Input.GetKey(KeyCode.LeftShift))
             {
                 thisRigidbody.velocity = new Vector2(0,100);
             }
-
-       
 
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
@@ -49,12 +52,11 @@ public class Player : Entity
         }
         
 
-        if (dirY >0f && !isFighting)
+        if (dirY > 0f && !isFighting)
         {
             anim.SetBool("running",true);
-            
         }
-        else if(dirY <0f && !isFighting)
+        else if(dirY < 0f && !isFighting)
         {
             anim.SetBool("running", true);
         }
@@ -83,21 +85,32 @@ public class Player : Entity
             anim.SetBool("running", false);
         }
         
-        if(Input.GetMouseButtonDown(0) && !isFighting)
+        if(Input.GetMouseButtonDown(0) && !isFighting && attackCooldown==0)
         {
-            anim.SetBool("running",false);
-            anim.SetBool("fighting",true);
-            isFighting = true;
-        }
-
-        if(Input.GetMouseButtonUp(0)  && isFighting )
-        {
-            anim.SetBool("running",true);
-            anim.SetBool("fighting",false);
-            isFighting= false;
+			StartCoroutine(AttackCoroutine());
         }
 
     }
+	
+	private IEnumerator AttackCoroutine()
+	{
+		isFighting = true;
+		anim.SetBool("running",false);
+        anim.SetBool("fighting",true);
+		
+		attackCooldown=AttackCooldownValue;
+		
+		for(int i=0; i<30; i++)
+		{
+			do{ yield return null; } while(Event.CheckPause());
+		}
+		
+		
+		
+		isFighting= false;
+		anim.SetBool("running",true);
+		anim.SetBool("fighting",false);
+	}
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
