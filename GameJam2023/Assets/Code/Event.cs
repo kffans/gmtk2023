@@ -25,6 +25,7 @@ public class Event : MonoBehaviour
 	public static int CanvasHeight = 1080;
 	public static int CanvasWidth = 1920;
 	public static Vector3 CanvasVectorHalved;
+	public static Vector2 IsometricVector;
 	
 	void Awake()
 	{
@@ -63,6 +64,7 @@ public class Event : MonoBehaviour
 	private static void EventInit()
 	{
 		CanvasVectorHalved = new Vector3(Event.CanvasWidth/2, Event.CanvasHeight/2, 0);
+		IsometricVector = new Vector2(1f, 0.33f);
 		ThisCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 		
 		Cam[0] = GameObject.Find("MainCamera").GetComponent<Camera>();
