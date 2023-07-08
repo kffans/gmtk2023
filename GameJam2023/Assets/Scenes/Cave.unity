@@ -273,7 +273,7 @@ RectTransform:
   - {fileID: 477350014}
   - {fileID: 685955191}
   m_Father: {fileID: 2118436196}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -681,6 +681,8 @@ MonoBehaviour:
   speed: 0
   healthText: {fileID: 0}
   scoreText: {fileID: 0}
+  effectsParent: {fileID: 0}
+  fistAttackPrefab: {fileID: 0}
 --- !u!1 &451404491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,6 +1095,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518755204}
   m_CullTransparentMesh: 1
+--- !u!1 &680537174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 680537175}
+  m_Layer: 0
+  m_Name: FistAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &680537175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680537174}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 165.77397, y: -81.38885, z: -876.676}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2118436196}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &685955190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,6 +2904,7 @@ RectTransform:
   - {fileID: 942888163}
   - {fileID: 1278265401}
   - {fileID: 446745632}
+  - {fileID: 680537175}
   - {fileID: 119420697}
   m_Father: {fileID: 0}
   m_RootOrder: 1

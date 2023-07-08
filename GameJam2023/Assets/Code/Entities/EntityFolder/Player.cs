@@ -14,6 +14,10 @@ public class Player : Entity
     private bool isFighting = false;
 	private int attackCooldown;
 	private static int AttackCooldownValue = 40;
+	private static int AttackStartValue = 10;
+	
+	public Transform effectsParent;
+	public GameObject fistAttackPrefab;
 	
 	private RectTransform thisRect;
 	private static Vector2 NormalDimensions = new Vector2(305, 330);//610x660
@@ -99,7 +103,13 @@ public class Player : Entity
 		else
 			thisRect.position += new Vector3(65f, 22f, 0f);
 		
-		for(int i=0; i<AttackCooldownValue; i++)
+		for(int i=0; i<AttackStartValue; i++)
+		{
+			do{ yield return null; } while(Event.CheckPause());
+		}
+		StartCoroutine(FistAttack());
+		
+		for(int i=0; i<AttackCooldownValue-AttackStartValue; i++)
 		{
 			do{ yield return null; } while(Event.CheckPause());
 		}
@@ -117,6 +127,16 @@ public class Player : Entity
 
 		isFighting = false;
 	}
+	
+	private IEnumerator FistAttack()
+	{
+		Instantiate(fistAttackPrefab, effectsParent);
+		for(int i=0; i<10; i++)
+		{
+			do{ yield return null; } while(Event.CheckPause());
+		}
+	}
+	
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
