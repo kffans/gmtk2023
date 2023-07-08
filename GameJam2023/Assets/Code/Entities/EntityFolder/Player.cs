@@ -91,6 +91,7 @@ public class Player : Entity
         anim.SetBool("fighting",true);
 		
 		attackCooldown=AttackCooldownValue;
+		thisRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
 		do{ yield return null; } while(Event.CheckPause());
 		thisRect.sizeDelta = AttackDimensions;
 		if(!isFlipped)
@@ -112,6 +113,7 @@ public class Player : Entity
 		anim.SetBool("running",true);
 		anim.SetBool("fighting",false);
 		do{ yield return null; } while(Event.CheckPause());
+		thisRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 		isFighting = false;
 	}
