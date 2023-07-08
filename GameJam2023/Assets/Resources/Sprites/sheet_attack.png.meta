@@ -112,12 +112,12 @@ TextureImporter:
       name: sheet_attack_0
       rect:
         serializedVersion: 2
-        x: 262
-        y: 45
-        width: 608
-        height: 635
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 43
+        y: 0
+        width: 870
+        height: 854
+      alignment: 9
+      pivot: {x: 0.7084212, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -133,12 +133,12 @@ TextureImporter:
       name: sheet_attack_1
       rect:
         serializedVersion: 2
-        x: 1235
-        y: 45
-        width: 699
-        height: 807
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1063
+        y: 0
+        width: 870
+        height: 854
+      alignment: 9
+      pivot: {x: 0.6666591, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -154,12 +154,12 @@ TextureImporter:
       name: sheet_attack_2
       rect:
         serializedVersion: 2
-        x: 2189
+        x: 2187
         y: 45
-        width: 888
-        height: 650
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 887
+        height: 834
+      alignment: 9
+      pivot: {x: 0.8180699, y: 0.10497021}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -172,36 +172,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_attack_3
-      rect:
-        serializedVersion: 2
-        x: 3077
-        y: 367
-        width: 4
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1ab8720a7b44d0ac0800000000000000
-      internalID: -3887375347894219871
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: sheet_attack_4
       rect:
         serializedVersion: 2
-        x: 3410
+        x: 3407
         y: 45
-        width: 876
-        height: 661
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 887
+        height: 835
+      alignment: 9
+      pivot: {x: 0.8106623, y: 0.103384525}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -209,27 +188,6 @@ TextureImporter:
       bones: []
       spriteID: cdcda758926f70f80800000000000000
       internalID: -8140267143255368484
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sheet_attack_5
-      rect:
-        serializedVersion: 2
-        x: 4286
-        y: 369
-        width: 4
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee7c4a68523fd8820800000000000000
-      internalID: 2922259075731605486
       vertices: []
       indices: 
       edges: []

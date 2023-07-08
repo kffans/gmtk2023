@@ -14,11 +14,17 @@ public class Player : Entity
     private bool isFighting = false;
 	private int attackCooldown;
 	private static int AttackCooldownValue = 40;
+	
+	private RectTransform thisRect;
+	private static Vector2 NormalDimensions = new Vector2(305, 330);//610x660
+	private static Vector2 AttackDimensions = new Vector2(435, 403);//870x806
 
 
     void Start()
     {
-        thisRigidbody = GetComponent<Rigidbody2D>();
+        thisRect = this.GetComponent<RectTransform>();
+		thisRect.sizeDelta = NormalDimensions;
+		thisRigidbody = GetComponent<Rigidbody2D>();
         speed = 400f;
         anim = GetComponent<Animator>();
         
@@ -30,64 +36,50 @@ public class Player : Entity
 
     void FixedUpdate()
     {
-        if(attackCooldown != 0)
-			attackCooldown--;
-		
-		float dirX = Input.GetAxisRaw("Horizontal");
+        float dirX = Input.GetAxisRaw("Horizontal");
         float dirY = Input.GetAxisRaw("Vertical");
 		
-        if(!isFighting)
-        {
-            thisRigidbody.velocity = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
-        
-            if(Input.GetKey(KeyCode.LeftShift))
-            {
-                thisRigidbody.velocity = new Vector2(0,100);
-            }
+		if(attackCooldown != 0)
+			attackCooldown--;
+		
+		
+		if(!isFighting)
+		{
+			if (dirX > 0f){
+				if (!isFlipped)
+				{
+					Event.FlipY(this.GetComponent<Transform>());
+					isFlipped = true;
+				}
+			}
+			else if (dirX < 0f){
+				if (isFlipped)
+				{
+					Event.FlipY(this.GetComponent<Transform>());
+					isFlipped = false;
+				}
+			}
+			
+			thisRigidbody.velocity = new Vector2(dirX, dirY);
+		
+			if(Input.GetKey(KeyCode.LeftShift))
+			{
+				thisRigidbody.velocity = new Vector2(0,100);
+			}
 
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
-            Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-            thisRigidbody.MovePosition(thisRigidbody.position + movement * speed * Time.fixedDeltaTime * Event.IsometricVector);
-        }
-        
-
-        if (dirY > 0f && !isFighting)
-        {
-            anim.SetBool("running",true);
-        }
-        else if(dirY < 0f && !isFighting)
-        {
-            anim.SetBool("running", true);
-        }
-
-        if (dirX > 0f && !isFighting)
-        {
-            anim.SetBool("running", true);
-            if (!isFlipped)
-            {
-                Event.FlipY(this.GetComponent<Transform>());
-                isFlipped = true;
-            }
-        }
-        else if (dirX < 0f && !isFighting)
-        {
-            anim.SetBool("running", true);
-            if (isFlipped)
-            {
-                Event.FlipY(this.GetComponent<Transform>());
-                isFlipped = false;
-            }
-        }
-        
-        if(dirX == 0f && dirY == 0f)
-        {
-            anim.SetBool("running", false);
-        }
-        
-        if(Input.GetMouseButtonDown(0) && !isFighting && attackCooldown==0)
+			Vector2 movement = new Vector2(dirX, dirY);
+			thisRigidbody.MovePosition(thisRigidbody.position + movement * speed * Time.fixedDeltaTime * Event.IsometricVector);
+		}
+		
+		if(Input.GetMouseButton(0) && !isFighting && attackCooldown==0)
         {
 			StartCoroutine(AttackCoroutine());
+        }
+		else if(!Input.GetMouseButton(0)){
+			anim.SetBool("running", true);
+
+			if(dirX == 0f && dirY == 0f)
+				anim.SetBool("running", false);
         }
 
     }
@@ -99,17 +91,29 @@ public class Player : Entity
         anim.SetBool("fighting",true);
 		
 		attackCooldown=AttackCooldownValue;
+		do{ yield return null; } while(Event.CheckPause());
+		thisRect.sizeDelta = AttackDimensions;
+		if(!isFlipped)
+			thisRect.position -= new Vector3(65f, -22f, 0f);
+		else
+			thisRect.position += new Vector3(65f, 22f, 0f);
 		
-		for(int i=0; i<30; i++)
+		for(int i=0; i<AttackCooldownValue; i++)
 		{
 			do{ yield return null; } while(Event.CheckPause());
 		}
 		
+		thisRect.sizeDelta = NormalDimensions;
+		if(!isFlipped)
+			thisRect.position += new Vector3(65f, -22f, 0f);
+		else
+			thisRect.position -= new Vector3(65f, 22f, 0f);
 		
-		
-		isFighting= false;
 		anim.SetBool("running",true);
 		anim.SetBool("fighting",false);
+		do{ yield return null; } while(Event.CheckPause());
+
+		isFighting = false;
 	}
 
     private void OnCollisionEnter2D(Collision2D other) 
