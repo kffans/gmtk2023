@@ -83,11 +83,12 @@ public class Player : Entity
 			if(dirX == 0f && dirY == 0f)
 				anim.SetBool("running", false);
         }
-
+		Event.Follow(this.gameObject);
     }
 	
 	private IEnumerator AttackCoroutine()
 	{
+		StartCoroutine(Event.CameraShake(0.7f, 20f));
 		isFighting = true;
 		anim.SetBool("running",false);
         anim.SetBool("fighting",true);
@@ -128,6 +129,7 @@ public class Player : Entity
 	
 	private IEnumerator FistAttack()
 	{
+		
 		GameObject fistEffect = Instantiate(fistAttackPrefab, effectsParent);
 		fistEffect.transform.position = this.transform.position;
 		if(isFlipped)

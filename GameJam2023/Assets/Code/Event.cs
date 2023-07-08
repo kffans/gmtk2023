@@ -26,6 +26,7 @@ public class Event : MonoBehaviour
 	public static int CanvasWidth = 1920;
 	public static Vector3 CanvasVectorHalved;
 	public static Vector2 IsometricVector;
+	public static bool IsFollowable = true;
 	
 	void Awake()
 	{
@@ -222,6 +223,45 @@ public class Event : MonoBehaviour
 	{
 		objectTransform.Rotate(0f,180f,0f);
 	}
+
+	public static IEnumerator CameraShake(float duration, float magnitude)
+	{
+		IsFollowable=false;
+		Vector3 originalPos = Cam[0].transform.localPosition;
+
+		float elapsedTime = 0f;
+		for(int i = 0; i< 20;i ++)
+		{
+			do{yield return null;}
+			while(CheckPause());
+		}
+		while (elapsedTime < duration)
+		{
+			float xO = UnityEngine.Random.Range(-0.5f, 0.5f) * magnitude;
+			float yO = UnityEngine.Random.Range(-0.5f, 0.5f) * magnitude;
+
+			Cam[0].transform.localPosition = new Vector3(xO, yO, 0) + originalPos;
+
+			magnitude /= 1.1f;
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		Cam[0].transform.localPosition = originalPos;
+		IsFollowable = true;
+	}
+
+	public static void Follow(GameObject playerObject)
+	{
+		if(IsFollowable)
+		{
+			Transform cameraTransform = Cam[0].transform;
+			cameraTransform.position = new Vector3(playerObject.transform.position.x, playerObject.transform.position.y, cameraTransform.position.z);
+		}
+	
+	}
+
+
 ///////////////////////////////
 
 }
