@@ -6,9 +6,10 @@ public abstract class Enemy : Entity
 {
     public GameObject targetObject;
 	public int health;
-	public bool canFollow= true;
+	public bool canFollow = true;
 	public GameObject[] objectsToFollow;
 	private bool isFlipped = false;
+	public float pushResistance;
    
 
     public void Follow()
@@ -66,5 +67,11 @@ public abstract class Enemy : Entity
 			do{ yield return null; }while(Event.CheckPause());
 		}
 		canFollow=true;
+	}
+	
+	public void PushedAway(){
+		WaitForFollow(60);
+		Vector2 direction = transform.position - GameObject.Find("Player").transform.position;
+		Event.Move(this.gameObject, pushResistance, 60, direction);
 	}
 }

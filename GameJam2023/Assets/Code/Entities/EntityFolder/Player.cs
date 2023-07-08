@@ -5,8 +5,6 @@ using TMPro;
 
 public class Player : Entity
 {
-    public TextMeshProUGUI healthText;
-    public TextMeshProUGUI scoreText;
     private Animator anim;
 
     private bool isFlipped = false;
@@ -14,7 +12,7 @@ public class Player : Entity
     private bool isFighting = false;
 	private int attackCooldown;
 	private static int AttackCooldownValue = 40;
-	private static int AttackStartValue = 10;
+	private static int AttackStartValue = 20;
 	
 	public Transform effectsParent;
 	public GameObject fistAttackPrefab;
@@ -130,11 +128,16 @@ public class Player : Entity
 	
 	private IEnumerator FistAttack()
 	{
-		Instantiate(fistAttackPrefab, effectsParent);
-		for(int i=0; i<10; i++)
+		GameObject fistEffect = Instantiate(fistAttackPrefab, effectsParent);
+		fistEffect.transform.position = this.transform.position;
+		if(isFlipped)
+			Event.FlipY(fistEffect.transform);
+		
+		for(int i=0; i<2; i++)
 		{
 			do{ yield return null; } while(Event.CheckPause());
 		}
+		Destroy(fistEffect);
 	}
 	
 

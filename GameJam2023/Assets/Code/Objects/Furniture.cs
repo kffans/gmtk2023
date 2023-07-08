@@ -8,8 +8,6 @@ public class Furniture : MonoBehaviour
     public int scoreValue;
     public TextMeshProUGUI  scoreBoard;
     public float damageDelay = 2f;
-    private bool canDealDamage = true;
-
 
     void Start()
     {
@@ -42,13 +40,9 @@ public class Furniture : MonoBehaviour
 
     IEnumerator DealDamageWithDelay()
     {
-        canDealDamage = false; 
-
         scoreValue -= 1;
-
         yield return new WaitForSeconds(damageDelay);
 
-        canDealDamage = true;
     }
 
 

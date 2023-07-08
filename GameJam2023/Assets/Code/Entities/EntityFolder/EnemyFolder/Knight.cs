@@ -8,6 +8,7 @@ public class Knight : Enemy
     void Start()
     {
         speed = 200f;
+		pushResistance = 300f;
 		targetObject = GameObject.Find("Player");
         thisRigidbody = this.GetComponent<Rigidbody2D>();
 		

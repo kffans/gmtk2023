@@ -7,7 +7,8 @@ public class Peasant : Enemy
 	// Start is called before the first frame update
     void Start()
     {
-        speed = 100f;
+        speed = 250f;
+		pushResistance = 450f;
         thisRigidbody = this.GetComponent<Rigidbody2D>();
 		
 		//Event.Move(this.gameObject, 300f, 60, Vector2.up);
