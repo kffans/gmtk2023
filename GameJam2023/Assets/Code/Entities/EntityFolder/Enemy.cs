@@ -13,20 +13,18 @@ public abstract class Enemy : Entity
 
     public void Follow()
 	{
-	    float dirX = transform.right.x;
-	    
         Vector2 direction = targetObject.transform.position - transform.position;
         Vector2 normalizedDirection = direction.normalized;
 		
         
 		thisRigidbody.MovePosition(thisRigidbody.position + normalizedDirection * speed * Time.fixedDeltaTime * Event.IsometricVector);
-		// * Speed * Time.deltaTime);
-		if (dirX > 0f && !isFlipped)
+		
+		if (direction.x < 0f && !isFlipped)
     	{
 			Event.FlipY(this.GetComponent<Transform>());
 			isFlipped = true;
     	}
-    	else if (dirX < 0f && isFlipped)
+    	else if (direction.x > 0f && isFlipped)
     	{
 			Event.FlipY(this.GetComponent<Transform>());
 			isFlipped = false;
