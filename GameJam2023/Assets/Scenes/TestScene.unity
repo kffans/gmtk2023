@@ -338,6 +338,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0610831e201f6a948b4593d393a16b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisRigidbody: {fileID: 291832507}
+  speed: 0
+  targetObject: {fileID: 0}
+  health: 0
 --- !u!1 &377584456
 GameObject:
   m_ObjectHideFlags: 0
