@@ -745,6 +745,7 @@ GameObject:
   - component: {fileID: 1115743404}
   - component: {fileID: 1115743403}
   - component: {fileID: 1115743402}
+  - component: {fileID: 1115743407}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -838,7 +839,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -510184784766954976, guid: 951f61366e28a204289e63bb8c2f332c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -872,6 +873,25 @@ MonoBehaviour:
   speed: 0
   healthText: {fileID: 0}
   scoreText: {fileID: 0}
+--- !u!95 &1115743407
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115743400}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d074682f7e4d621408ad9fa8f07c0621, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1362586161
 GameObject:
   m_ObjectHideFlags: 0
