@@ -26,6 +26,11 @@ public class Furniture : MonoBehaviour
             Destroy(gameObject);
         }
     }
+	
+	void OnDestroy()
+	{
+		GameplayController.UpdateObjectsToFollow();
+	}
 
     void OnCollisionStay2D(Collision2D collision)
     {

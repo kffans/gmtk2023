@@ -7,8 +7,7 @@ public class Peasant : Enemy
 	// Start is called before the first frame update
     void Start()
     {
-        objectsToFollow = GameObject.FindGameObjectsWithTag("ART");
-        speed = 400f;
+        speed = 100f;
         thisRigidbody = this.GetComponent<Rigidbody2D>();
 		
 		//Event.Move(this.gameObject, 300f, 60, Vector2.up);
@@ -18,7 +17,7 @@ public class Peasant : Enemy
 
     void FixedUpdate()
     {
-        SearchForTarget(objectsToFollow);
+        SearchForTarget(GameplayController.ObjectsToFollow);
 		if (targetObject != null && canFollow)
         {
             Follow();

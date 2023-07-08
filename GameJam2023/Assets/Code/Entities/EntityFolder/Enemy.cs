@@ -35,13 +35,13 @@ public abstract class Enemy : Entity
 		}
 		if (closestObject != null)
 		{
-			Debug.Log("Najbliższy obiekt: " + closestObject.name);
+			//Debug.Log("Najbliższy obiekt: " + closestObject.name);
 			targetObject = closestObject;
 		}
 		else
 		{
 			// Brak obiektów o tagu "ART"
-			Debug.Log("Brak obiektów o tagu 'ART'");
+			//Debug.Log("Brak obiektów o tagu 'ART'");
 		}
 	}
 	
