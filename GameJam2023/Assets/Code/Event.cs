@@ -147,7 +147,7 @@ public class Event : MonoBehaviour
 	
 	
 ///////////////////////////////
-	private static IEnumerator AnimCoroutine(Transform objectTransform, float val, int time, Vector3 vectorDir, Action<Transform, float, Vector3> function)
+	private static IEnumerator AnimCoroutine(Transform objectTransform, float val, int time, Vector2 vectorDir, Action<Transform, float, Vector2> function)
 	{
 		float n = endPoint/time;
 		
@@ -179,38 +179,48 @@ public class Event : MonoBehaviour
 	
 	
 ///////////////////////////////
-	public static void Move(GameObject objectTransform, float distance, int durationInFrames, Vector2 vectorDirection)
+	public static void Move(GameObject objectTransform, float distance, int durationInFrames, Vector2 vectorDir)
 	{
-		Vector3 vectorDir = vectorDirection;
 		ThisEvent.StartCoroutine(Event.AnimCoroutine(objectTransform.GetComponent<Transform>(), distance, durationInFrames, vectorDir, Event.MoveBy));
 	}
-	public static void MoveBy(Transform objectTransform, float val, Vector3 vectorDir)
+	public static void MoveBy(Transform objectTransform, float val, Vector2 vectorDir)
 	{
-		objectTransform.position += val * vectorDir;
+		Rigidbody2D tempRigid = objectTransform.GetComponent<Rigidbody2D>();
+		if(tempRigid != null)
+		{
+			tempRigid.MovePosition(tempRigid.position + vectorDir.normalized * val * Time.fixedDeltaTime * 60);
+		}
+		else
+		{
+			Vector3 vectorDir3 = vectorDir;
+			objectTransform.position += val * vectorDir3.normalized;
+		}
 	}
 ///////////////////////////////
 
 
 ///////////////////////////////
-	public static void Rotate(GameObject objectTransform, float angle, int durationInFrames, Vector2 vectorDirection)
+	public static void Rotate(GameObject objectTransform, float angle, int durationInFrames, Vector2 vectorDir)
 	{
-		Vector3 vectorDir = vectorDirection;
-		Debug.Log(vectorDir);
 		ThisEvent.StartCoroutine(Event.AnimCoroutine(objectTransform.GetComponent<Transform>(), angle, durationInFrames, vectorDir, Event.RotateBy));
 	}
-	public static void RotateBy(Transform objectTransform, float val, Vector3 vectorDir)
+	public static void RotateBy(Transform objectTransform, float val, Vector2 vectorDir)
 	{
 		objectTransform.Rotate(0f,0f,val);
 	}
-	public static void RotateTo(Transform objectTransform, float val, Vector2 vectorDirection)
+	public static void RotateTo(Transform objectTransform, float val, Vector2 vectorDir)
 	{
-		if(vectorDirection != Vector2.zero)
+		if(vectorDir != Vector2.zero)
 		{
-			Vector3 vectorDir = vectorDirection;
-			objectTransform.rotation = Quaternion.LookRotation(vectorDir.normalized); 
+			Vector3 vectorDir3 = vectorDir;
+			objectTransform.rotation = Quaternion.LookRotation(vectorDir3.normalized); 
 		}
 		else
 			objectTransform.rotation = Quaternion.Euler(0f, 0f, val);
+	}
+	public static void FlipY(Transform objectTransform)
+	{
+		objectTransform.Rotate(0f,180f,0f);
 	}
 ///////////////////////////////
 
