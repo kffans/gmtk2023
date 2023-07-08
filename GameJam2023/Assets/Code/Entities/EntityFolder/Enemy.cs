@@ -13,14 +13,14 @@ public abstract class Enemy : Entity
 		targetObject = GameObject.Find("Player");
         //thisRigidBody = this.GetComponent<Rigidbody2D>();
 
-        Event.Fade(this.gameObject, 60, 1);
+        Event.Move(this.gameObject, 400f, 120, Vector2.left);
     }
 
     void FixedUpdate()
     {
         if (targetObject != null)
         {
-            Follow(targetObject);
+            //Follow(targetObject);
         }
     }
 
