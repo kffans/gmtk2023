@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ART
   - Enemy
+  - Spawn
   layers:
   - Default
   - TransparentFX
