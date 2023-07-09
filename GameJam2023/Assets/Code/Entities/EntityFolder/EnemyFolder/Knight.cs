@@ -9,8 +9,8 @@ public class Knight : Enemy
         GameplayController.UpdateEnemies();
 		speed = 200f;
 		pushResistance = 350f;
+		thisRigidbody = this.GetComponent<Rigidbody2D>();
 		SearchForTarget(GameplayController.EnemyGlobalTarget);
-        thisRigidbody = this.GetComponent<Rigidbody2D>();
 		
 		//Event.Move(this.gameObject, 300f, 60, Vector2.up);
 		//StartCoroutine(WaitForFollow(60));
@@ -21,7 +21,6 @@ public class Knight : Enemy
         if(newGlobalTarget!=GameplayController.EnemyGlobalTarget)
 		{
 			newGlobalTarget = GameplayController.EnemyGlobalTarget;
-			Debug.Log("AAA");
 			SearchForTarget(newGlobalTarget);
 		}
 		

@@ -150,8 +150,9 @@ public class Player : Entity
 			if(currentEnemy.gameObject.tag == "Enemy")
 				currentEnemy.gameObject.GetComponent<Enemy>().PushedAway();
 		}
-		
-		for(int i=0; i<4; i++)
+		Music.PlaySound("smash_attack");
+		Event.Fade(fistEffect, 5, -1);
+		for(int i=0; i<6; i++)
 		{
 			do{ yield return null; } while(Event.CheckPause());
 		}

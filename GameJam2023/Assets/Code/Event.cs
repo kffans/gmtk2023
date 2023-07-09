@@ -29,9 +29,12 @@ public class Event : MonoBehaviour
 	public static Vector3 CanvasVectorHalved;
 	public static Vector2 IsometricVector;
 	
+	public static GameObject BlackoutImage;
+	
 	void Awake()
 	{
 		ThisEvent = this;
+		BlackoutImage = GameObject.Find("blackout");
 		Application.targetFrameRate = FrameRate;
 		EventInit();
 		SetCameras();
@@ -264,8 +267,6 @@ public class Event : MonoBehaviour
 		}
 	
 	}
-
-
 ///////////////////////////////
 
 }

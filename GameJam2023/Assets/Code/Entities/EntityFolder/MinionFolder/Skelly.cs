@@ -5,7 +5,8 @@ public class Skelly : Minion
     void Start()
     {
         GameplayController.UpdateArtObjects();
-		speed=100f;
+		speed=30f;
+		thisRigidbody = this.GetComponent<Rigidbody2D>();
 		SearchForTarget(GameplayController.EnemyObjects);
     }
 

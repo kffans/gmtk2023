@@ -13,11 +13,10 @@ public class Music : MonoBehaviour
 
     void Awake()
     {
-        
         audioSource = GetComponent<AudioSource>();
+		AAudioSource = audioSource;
         SetVolume(50);
 		MusicsToPlay = musicsToPlay;
-		AAudioSource = audioSource;
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
         DontDestroyOnLoad(this.gameObject);
     }
@@ -44,16 +43,16 @@ public class Music : MonoBehaviour
 
     public static void PlaySound(string soundName)
     {
-        AudioClip resourceSound = Resources.Load<AudioClip>($"Audio/Sounds/{soundName}");
+        AudioClip resourceSound = Resources.Load<AudioClip>("Audio/Sounds/" + soundName);
         if (resourceSound != null)
         {
             AudioSource.PlayClipAtPoint(resourceSound, Vector3.zero);
         }
     }
 
-    public void SetVolume(float volume)
+    public static void SetVolume(float volume)
     {
-        audioSource.volume = volume;
+        AAudioSource.volume = volume;
     }
 
     void OnVolumeChanged(float volume)
