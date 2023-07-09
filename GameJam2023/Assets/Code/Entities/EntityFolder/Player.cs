@@ -150,9 +150,9 @@ public class Player : Entity
 			if(currentEnemy.gameObject.tag == "Enemy")
 				currentEnemy.gameObject.GetComponent<Enemy>().PushedAway();
 		}
-		Music.PlaySound("smash_attack");
-		Event.Fade(fistEffect, 5, -1);
-		for(int i=0; i<6; i++)
+		Music.PlaySound("heat");
+		Event.Fade(fistEffect, 9, -1);
+		for(int i=0; i<10; i++)
 		{
 			do{ yield return null; } while(Event.CheckPause());
 		}

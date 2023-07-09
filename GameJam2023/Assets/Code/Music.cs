@@ -43,9 +43,11 @@ public class Music : MonoBehaviour
 
     public static void PlaySound(string soundName)
     {
-        AudioClip resourceSound = Resources.Load<AudioClip>("Audio/Sounds/" + soundName);
+        AudioClip resourceSound = Resources.Load<AudioClip>("Audio/Sounds/" + soundName) as AudioClip;
+		Debug.Log("bb");
         if (resourceSound != null)
         {
+			Debug.Log("aa");
             AudioSource.PlayClipAtPoint(resourceSound, Vector3.zero);
         }
     }

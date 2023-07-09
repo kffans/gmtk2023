@@ -73,7 +73,7 @@ public class Event : MonoBehaviour
 	private static void EventInit()
 	{
 		CanvasVectorHalved = new Vector3(Event.CanvasWidth/2, Event.CanvasHeight/2, 0);
-		IsometricVector = new Vector2(1f, 0.5f);
+		IsometricVector = new Vector2(1f, 0.66f);
 		ThisCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 		
 		Cam[0] = GameObject.Find("MainCamera").GetComponent<Camera>();
