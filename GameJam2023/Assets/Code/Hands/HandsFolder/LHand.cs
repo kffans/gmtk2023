@@ -13,7 +13,7 @@ public class LHand : MonoBehaviour
     void Start()
     {
         minionContainer = GameObject.Find("Minions");
-        minion = GameObject.Find("MinionPlaceHolder");
+       
     }
 
     // Update is called once per frame
