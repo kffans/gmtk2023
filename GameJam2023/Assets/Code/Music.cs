@@ -17,7 +17,6 @@ public class Music : MonoBehaviour
 		AAudioSource = audioSource;
         SetVolume(50);
 		MusicsToPlay = musicsToPlay;
-        volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
         DontDestroyOnLoad(this.gameObject);
     }
 

@@ -6,7 +6,8 @@ public class Knight : Enemy
 	// Start is called before the first frame update
     void Start()
     {
-        GameplayController.UpdateEnemies();
+		GameplayController.UpdateEnemies();
+		health=2;
 		speed = 200f;
 		pushResistance = 350f;
 		thisRigidbody = this.GetComponent<Rigidbody2D>();

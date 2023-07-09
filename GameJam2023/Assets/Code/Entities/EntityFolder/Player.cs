@@ -73,7 +73,7 @@ public class Player : Entity
 			thisRigidbody.MovePosition(thisRigidbody.position + movement * speed * Time.fixedDeltaTime * Event.IsometricVector);
 		}
 		
-		if(Input.GetMouseButton(0) && !isFighting && attackCooldown==0)
+		if(Input.GetMouseButton(0) && !isFighting && GameplayController.StartWave && attackCooldown==0)
         {
 			StartCoroutine(AttackCoroutine());
         }
@@ -148,9 +148,13 @@ public class Player : Entity
 		foreach (var currentEnemy in enemiesToDamage)
 		{
 			if(currentEnemy.gameObject.tag == "Enemy")
-				currentEnemy.gameObject.GetComponent<Enemy>().PushedAway();
+			{
+				Enemy currentEnemyObj = currentEnemy.gameObject.GetComponent<Enemy>();
+				currentEnemyObj.health--;
+				if(currentEnemyObj.health!=0)
+					currentEnemyObj.PushedAway();
+			}
 		}
-		Music.PlaySound("heat");
 		Event.Fade(fistEffect, 9, -1);
 		for(int i=0; i<10; i++)
 		{

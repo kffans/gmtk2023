@@ -3,7 +3,6 @@ using UnityEngine;
 
 public abstract class Enemy : Entity
 {
-	public int health;
 	public bool canFollow = true;
 	public GameObject[] objectsToFollow;
 	public float pushResistance;

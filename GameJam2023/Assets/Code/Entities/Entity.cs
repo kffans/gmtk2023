@@ -8,6 +8,7 @@ public abstract class Entity : MonoBehaviour
     public Rigidbody2D thisRigidbody;
 	public float speed;
 	public GameObject targetObject;
+	public int health;
 	public bool isFlipped = false;
 	
 	public void SearchForTarget(GameObject[] objectsToFollow)

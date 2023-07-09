@@ -16,6 +16,7 @@ public class Menu : MonoBehaviour
 		//Music.PlayMusic(0);
 		Application.targetFrameRate = FrameRate;
 		
+		
 		Canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 		
 		Cam[0] = GameObject.Find("MainCamera").GetComponent<Camera>();

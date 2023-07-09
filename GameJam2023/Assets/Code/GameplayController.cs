@@ -13,7 +13,7 @@ public class GameplayController : MonoBehaviour
 	public static GameObject[] EnemyGlobalTarget;
 	public static string EnemyGlobalTargetName;
 	public static bool CanDestroyFurniture=false;
-	public bool StartWave=false;
+	public static bool StartWave=false;
 	
 	public void Awake()
 	{
@@ -40,6 +40,9 @@ public class GameplayController : MonoBehaviour
 	{
 		StartWave = true;
 		GameObject.Find("StartWave").gameObject.SetActive(false);
+		Event.Fade(GameObject.Find("LHand"), 15, 1);
+		Event.Fade(GameObject.Find("RHand"), 15, 1);
+		Event.Move(GameObject.Find("Score"), 200f, 15, Vector2.down);
 	}
 
     public IEnumerator GameplayEvents()
@@ -67,7 +70,7 @@ public class GameplayController : MonoBehaviour
 		yield return new WaitForSeconds(2f);
 		DisplayText.ChangeDisplayText("Attack its furniture to weaken the monster... emotionally!", 120, new Color32(255, 255, 255, 255)); //at the end the say, "yeah that's a good idea"
 		yield return new WaitForSeconds(3f);
-		DisplayText.ChangeDisplayText("NOOO!!!", 40, new Color32(252, 161, 3, 255));
+		DisplayText.ChangeDisplayText("NOOO!!! THAT'S ALL I HAVE!", 40, new Color32(252, 161, 3, 255));
 		
 
 		CanDestroyFurniture=true;

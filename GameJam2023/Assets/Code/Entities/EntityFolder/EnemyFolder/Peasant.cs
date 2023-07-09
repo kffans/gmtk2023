@@ -7,6 +7,7 @@ public class Peasant : Enemy
     void Start()
     {
         GameplayController.UpdateEnemies();
+		health=1;
 		speed = 250f;
 		pushResistance = 450f;
 		SearchForTarget(GameplayController.EnemyGlobalTarget);
