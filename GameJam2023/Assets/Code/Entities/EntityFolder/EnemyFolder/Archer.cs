@@ -8,7 +8,7 @@ public class Archer : Enemy
     void Start()
     {
         speed = 300f;
-		targetObject = GameObject.Find("Player");
+		targetObject = GameplayController.PlayerObject;
         thisRigidbody = this.GetComponent<Rigidbody2D>();
 		
 		Event.Move(this.gameObject, 300f, 60, Vector2.up);

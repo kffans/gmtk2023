@@ -7,29 +7,7 @@ public abstract class Enemy : Entity
 	public int health;
 	public bool canFollow = true;
 	public GameObject[] objectsToFollow;
-	private bool isFlipped = false;
 	public float pushResistance;
-   
-
-    public void Follow()
-	{
-        Vector2 direction = targetObject.transform.position - transform.position;
-        Vector2 normalizedDirection = direction.normalized;
-		
-        
-		thisRigidbody.MovePosition(thisRigidbody.position + normalizedDirection * speed * Time.fixedDeltaTime * Event.IsometricVector);
-		
-		if (direction.x < 0f && !isFlipped)
-    	{
-			Event.FlipY(this.GetComponent<Transform>());
-			isFlipped = true;
-    	}
-    	else if (direction.x > 0f && isFlipped)
-    	{
-			Event.FlipY(this.GetComponent<Transform>());
-			isFlipped = false;
-    	}
-	}
 	
 	public IEnumerator WaitForFollow(int time)
 	{
@@ -58,8 +36,13 @@ public abstract class Enemy : Entity
 	}
 	
 	public void PushedAway(){
-		Vector2 direction = transform.position - GameObject.Find("Player").transform.position;
+		Vector2 direction = transform.position - GameplayController.PlayerObject.transform.position;
 		Event.Move(this.gameObject, pushResistance, 20, direction);
 		StartCoroutine(WaitForFollow(60));
+	}
+	
+	void OnDestroy()
+	{
+		GameplayController.UpdateEnemies();
 	}
 }

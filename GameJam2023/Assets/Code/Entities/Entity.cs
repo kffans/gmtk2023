@@ -8,6 +8,7 @@ public abstract class Entity : MonoBehaviour
     public Rigidbody2D thisRigidbody;
 	public float speed;
 	public GameObject targetObject;
+	public bool isFlipped = false;
 	
 	public void SearchForTarget(GameObject[] objectsToFollow)
 	{
@@ -33,5 +34,25 @@ public abstract class Entity : MonoBehaviour
 			// Brak obiektów o tagu "ART"
 			//Debug.Log("Brak obiektów o tagu 'ART'");
 		}
+	}
+	
+	public void Follow()
+	{
+        Vector2 direction = targetObject.transform.position - transform.position;
+        Vector2 normalizedDirection = direction.normalized;
+		
+        
+		thisRigidbody.MovePosition(thisRigidbody.position + normalizedDirection * speed * Time.fixedDeltaTime * Event.IsometricVector);
+		
+		if (direction.x < 0f && !isFlipped)
+    	{
+			Event.FlipY(this.GetComponent<Transform>());
+			isFlipped = true;
+    	}
+    	else if (direction.x > 0f && isFlipped)
+    	{
+			Event.FlipY(this.GetComponent<Transform>());
+			isFlipped = false;
+    	}
 	}
 }
