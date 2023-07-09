@@ -8,8 +8,6 @@ public class Player : Entity
     [SerializeField] LayerMask whatIsEnemy;
 	private Animator anim;
 
-    private bool isFlipped = false;
-
     private bool isFighting = false;
 	private int attackCooldown;
 	private static int AttackCooldownValue = 40;

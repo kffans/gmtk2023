@@ -6,6 +6,8 @@ public class GameplayController : MonoBehaviour
 {
     public GameObject DisplayTextObject;
 	public static GameObject[] ArtObjects;
+	public static GameObject[] EnemyObjects;
+	public static GameObject PlayerObject;
 	
 	public void Awake()
 	{
@@ -21,6 +23,10 @@ public class GameplayController : MonoBehaviour
 	{
 		ArtObjects = GameObject.FindGameObjectsWithTag("ART");
 	}
+	public static void UpdateEnemies()
+	{
+		EnemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+	}
 
     public IEnumerator HiddenTimer()
     {
@@ -30,12 +36,30 @@ public class GameplayController : MonoBehaviour
 		DisplayText.ChangeDisplayText("Get that bastard!", 180, new Color32(255, 255, 255, 255));
 		
 		yield return new WaitForSeconds(20f);
+		
 		//Enemy.ChangeTarget();
 		DisplayText.ChangeDisplayText("Gah! It's invulnerable!!!", 80, new Color32(255, 255, 255, 255));
 		yield return new WaitForSeconds(2f);
 		DisplayText.ChangeDisplayText("Attack its furniture to weaken the monster... emotionally!", 120, new Color32(255, 255, 255, 255)); //at the end the say, "yeah that's a good idea"
 		yield return new WaitForSeconds(2f);
+		
+		foreach(var enemy in EnemyObjects)
+		{
+			if(enemy.GetComponent<Peasant>()!=null)
+			{
+				
+			}
+		}
 		DisplayText.ChangeDisplayText("NOOO!!!", 40, new Color32(252, 161, 3, 255));
+		yield return new WaitForSeconds(2f);
+		
+		foreach(var enemy in EnemyObjects)
+		{
+			if(enemy.GetComponent<Knight>()!=null)
+			{
+				//enemy.targetObject
+			}
+		}
 		
 		yield return new WaitForSeconds(5f);
 		DisplayText.ChangeDisplayText("Come on, snatch its crown! Quick!", 120, new Color32(255, 255, 255, 255));

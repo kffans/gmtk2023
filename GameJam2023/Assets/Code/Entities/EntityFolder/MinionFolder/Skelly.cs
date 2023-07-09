@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Skelly : Minion
 {
-    // Start is called before the first frame update
     void Start()
     {
-        SearchForTarget(GameObject.FindGameObjectsWithTag("Enemy"));
+        speed=100f;
+		SearchForTarget(GameplayController.EnemyObjects);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        SearchForTarget(GameplayController.EnemyObjects);
+		if (targetObject != null)
+        {
+			Follow();
+        }
+		
     }
 }
