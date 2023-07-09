@@ -25,6 +25,5 @@ public class GameplayController : MonoBehaviour
     public IEnumerator ShowTextAfterDelay()
     {
         yield return new WaitForSeconds(4f);
-        DisplayText.ChangeDisplayText("Tekst po 30 sekundach!");
     }
 }

@@ -30,6 +30,7 @@ public class Player : Entity
 		thisRigidbody = GetComponent<Rigidbody2D>();
         speed = 400f;
         anim = GetComponent<Animator>();
+		Event.CameraFollowObject = this.GetComponent<Transform>();
         
 		//Event.Move(GameObject.Find("MainCamera"), 100f, 60, new Vector2(2,-1).normalized);
 		
@@ -84,12 +85,11 @@ public class Player : Entity
 			if(dirX == 0f && dirY == 0f)
 				anim.SetBool("running", false);
         }
-		Event.Follow(this.gameObject.transform);
     }
 	
 	private IEnumerator AttackCoroutine()
 	{
-		StartCoroutine(Event.CameraShake(0.4f, 20f));
+		StartCoroutine(Event.CameraShake(0.4f, 30f));
 		isFighting = true;
 		anim.SetBool("running",false);
         anim.SetBool("fighting",true);

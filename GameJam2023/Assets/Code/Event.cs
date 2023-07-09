@@ -10,6 +10,7 @@ public class Event : MonoBehaviour
 	private static Canvas ThisCanvas;
 	private static int CamCount = 1;
 	public static Camera[] Cam = new Camera[CamCount];
+	public static Transform CameraFollowObject;
 	//Cam[0] - Main Camera
 	
 	public static bool isPaused = false;
@@ -45,6 +46,11 @@ public class Event : MonoBehaviour
 			PauseGame();
 		}
     }
+	
+	void LateUpdate()
+	{
+		Follow();
+	}
 	
 	public void PauseGame()
 	{
@@ -251,11 +257,12 @@ public class Event : MonoBehaviour
 		IsFollowable = true;
 	}
 
-	public static void Follow(Transform targetObject)
+	public static void Follow()
 	{
-		if(IsFollowable)
+		if(IsFollowable && CameraFollowObject!=null)
 		{
-			Cam[0].transform.position = targetObject.position;
+			Vector3 smoothFollow = Vector3.Lerp(Cam[0].transform.position, CameraFollowObject.position, 5f);
+			Cam[0].transform.position = smoothFollow;
 		}
 	
 	}

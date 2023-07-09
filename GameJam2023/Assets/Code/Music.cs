@@ -17,7 +17,7 @@ public class Music : MonoBehaviour
 
     void Update()
     {
-        if (volumeSlider == null)
+        if (volumeSlider == null && Event.isPaused)
         {
             volumeSlider = GameObject.Find("Volume").GetComponent<Slider>();
             volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
