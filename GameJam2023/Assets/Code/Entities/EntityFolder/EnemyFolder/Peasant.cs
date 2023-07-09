@@ -18,7 +18,7 @@ public class Peasant : Enemy
 
     void FixedUpdate()
     {
-		if (targetObject != null && canFollow)
+		if (canFollow)
         {
             Follow();
         }

@@ -20,7 +20,7 @@ public class Knight : Enemy
     void FixedUpdate()
     {
         
-		if (targetObject != null && canFollow)
+		if (canFollow)
         {
 			Follow();
         }

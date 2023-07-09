@@ -13,10 +13,7 @@ public class Skelly : Minion
     void FixedUpdate()
     {
         SearchForTarget(GameplayController.EnemyObjects);
-		if (targetObject != null)
-        {
-			Follow();
-        }
-		
+
+		Follow();
     }
 }
