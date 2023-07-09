@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Enemy : Entity
@@ -8,6 +7,7 @@ public abstract class Enemy : Entity
 	public bool canFollow = true;
 	public GameObject[] objectsToFollow;
 	public float pushResistance;
+	public static bool HasGlobalTargetChanged=true;
 	
 	public IEnumerator WaitForFollow(int time)
 	{
@@ -36,13 +36,8 @@ public abstract class Enemy : Entity
 	}
 	
 	public void PushedAway(){
-		Vector2 direction = transform.position - GameplayController.PlayerObject.transform.position;
+		Vector2 direction = transform.position - GameplayController.PlayerObject[0].transform.position;
 		Event.Move(this.gameObject, pushResistance, 20, direction);
 		StartCoroutine(WaitForFollow(60));
-	}
-	
-	void OnDestroy()
-	{
-		GameplayController.UpdateEnemies();
 	}
 }

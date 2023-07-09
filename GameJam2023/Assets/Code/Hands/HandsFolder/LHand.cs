@@ -13,7 +13,6 @@ public class LHand : MonoBehaviour
     void Start()
     {
         minionContainer = GameObject.Find("Minions");
-       
     }
 
     // Update is called once per frame
@@ -21,7 +20,6 @@ public class LHand : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("naciśnięte Q");
             SpawnClick();
         }
     }
@@ -42,7 +40,6 @@ public class LHand : MonoBehaviour
 
             GameObject newMinion = Instantiate(minion, worldPosition, Quaternion.identity);
             newMinion.transform.SetParent(minionContainer.transform);
-           // Image newImage = newImageObject.GetComponent<Image>();
         }
     }
 }

@@ -32,30 +32,23 @@ public class Furniture : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && GameplayController.CanDestroyFurniture)
         {
-            StartCoroutine(DealDamageWithDelay());
+            scoreValue -= 1;
         }
     }
-
-    IEnumerator DealDamageWithDelay()
-    {
-        scoreValue -= 1;
-        yield return new WaitForSeconds(damageDelay);
-
-    }
-
-
+	
 
     int CalculateTotalScore()
     {
         Furniture[] furnitureObjects = GameObject.FindObjectsOfType<Furniture>();
         int totalScore = 0;
-
-        foreach (Furniture furniture in furnitureObjects)
-        {
-            totalScore += furniture.scoreValue;
-        }
+		if(furnitureObjects.Length!=0){
+			foreach (Furniture furniture in furnitureObjects)
+			{
+				totalScore += furniture.scoreValue;
+			}
+		}
 
         return totalScore;
     }
