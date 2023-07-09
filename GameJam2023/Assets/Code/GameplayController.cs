@@ -70,7 +70,7 @@ public class GameplayController : MonoBehaviour
 		yield return new WaitForSeconds(2f);
 		DisplayText.ChangeDisplayText("Attack its furniture to weaken the monster... emotionally!", 120, new Color32(255, 255, 255, 255)); //at the end the say, "yeah that's a good idea"
 		yield return new WaitForSeconds(3f);
-		DisplayText.ChangeDisplayText("NOOO!!! THAT'S ALL I HAVE!", 40, new Color32(252, 161, 3, 255));
+		DisplayText.ChangeDisplayText("NOOO!!! THAT'S ALL I HAVE!", 120, new Color32(252, 161, 3, 255));
 		
 
 		CanDestroyFurniture=true;
@@ -89,9 +89,10 @@ public class GameplayController : MonoBehaviour
 		DisplayText.ChangeDisplayText("You want only my crown? Should have said so from the beginning...", 180, new Color32(252, 161, 3, 255));
 		
 		yield return new WaitForSeconds(5f);
-		DisplayText.ChangeDisplayText("...thank you... WE'RE RICH!!! BALLADS WILL TELL OF THIS COURAGEOUS TALE! Let's go home lads.", 270, new Color32(255, 255, 255, 255));
+		DisplayText.ChangeDisplayText("WE'RE RICH!!! BALLADS WILL TELL OF THIS COURAGEOUS TALE! Let's go home lads.", 270, new Color32(255, 255, 255, 255));
 		yield return new WaitForSeconds(5f);
-		Music.SetVolume(50);
-		SceneManager.LoadScene(0);
+		Destroy(GameObject.Find("MusicController"));
+		
+		SceneManager.LoadScene(2);
     }
 }

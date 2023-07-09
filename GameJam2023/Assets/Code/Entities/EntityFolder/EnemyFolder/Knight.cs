@@ -19,7 +19,10 @@ public class Knight : Enemy
 
     void FixedUpdate()
     {
-        if(newGlobalTarget!=GameplayController.EnemyGlobalTarget)
+        if(health==0)
+			Death();
+		
+		if(newGlobalTarget!=GameplayController.EnemyGlobalTarget)
 		{
 			newGlobalTarget = GameplayController.EnemyGlobalTarget;
 			SearchForTarget(newGlobalTarget);
