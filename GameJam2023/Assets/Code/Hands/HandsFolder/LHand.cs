@@ -39,6 +39,7 @@ public class LHand : MonoBehaviour
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
             GameObject newMinion = Instantiate(minion, worldPosition, Quaternion.identity);
+			GameObject.Find("skull" + playerShots.ToString()).SetActive(false);
             newMinion.transform.SetParent(minionContainer.transform);
         }
     }

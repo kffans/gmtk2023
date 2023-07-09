@@ -41,6 +41,9 @@ public class GameplayController : MonoBehaviour
 		StartWave = true;
 		GameObject.Find("StartWave").gameObject.SetActive(false);
 		Event.Fade(GameObject.Find("LHand"), 15, 1);
+		Event.Fade(GameObject.Find("skull1"), 15, 1);
+		Event.Fade(GameObject.Find("skull2"), 15, 1);
+		Event.Fade(GameObject.Find("skull3"), 15, 1);
 		Event.Fade(GameObject.Find("RHand"), 15, 1);
 		Event.Move(GameObject.Find("Score"), 200f, 15, Vector2.down);
 	}
