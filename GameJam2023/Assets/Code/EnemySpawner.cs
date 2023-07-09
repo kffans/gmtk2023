@@ -23,7 +23,10 @@ public class EnemySpawner : MonoBehaviour
 		{
 			if(GameplayController.StartWave){
 				Instantiate(enemiesArray[0], this.transform);
-				yield return new WaitForSeconds(UnityEngine.Random.Range(1, 3));
+				yield return new WaitForSeconds(UnityEngine.Random.Range(3, 6));
+			}
+			else{
+				do{ yield return null; } while(Event.CheckPause());
 			}
 		}
     }
