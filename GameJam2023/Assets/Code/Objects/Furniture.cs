@@ -27,7 +27,7 @@ public class Furniture : MonoBehaviour
 	
 	void OnDestroy()
 	{
-		GameplayController.UpdateObjectsToFollow();
+		GameplayController.UpdateArtObjects();
 	}
 
     void OnCollisionStay2D(Collision2D collision)

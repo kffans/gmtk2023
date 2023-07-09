@@ -18,7 +18,6 @@ public class Peasant : Enemy
 
     void FixedUpdate()
     {
-        SearchForTarget(GameplayController.ObjectsToFollow);
 		if (targetObject != null && canFollow)
         {
             Follow();

@@ -11,6 +11,7 @@ public class Event : MonoBehaviour
 	private static int CamCount = 1;
 	public static Camera[] Cam = new Camera[CamCount];
 	public static Transform CameraFollowObject;
+	public static bool IsFollowable = true;
 	//Cam[0] - Main Camera
 	
 	public static bool isPaused = false;
@@ -27,11 +28,9 @@ public class Event : MonoBehaviour
 	public static int CanvasWidth = 1920;
 	public static Vector3 CanvasVectorHalved;
 	public static Vector2 IsometricVector;
-	public static bool IsFollowable = true;
 	
 	void Awake()
 	{
-		DontDestroyOnLoad(this.gameObject);
 		ThisEvent = this;
 		Application.targetFrameRate = FrameRate;
 		EventInit();
@@ -261,8 +260,7 @@ public class Event : MonoBehaviour
 	{
 		if(IsFollowable && CameraFollowObject!=null)
 		{
-			Vector3 smoothFollow = Vector3.Lerp(Cam[0].transform.position, CameraFollowObject.position, 5f);
-			Cam[0].transform.position = smoothFollow;
+			Cam[0].transform.position = CameraFollowObject.position;
 		}
 	
 	}

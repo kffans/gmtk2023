@@ -89,7 +89,7 @@ public class Player : Entity
 	
 	private IEnumerator AttackCoroutine()
 	{
-		StartCoroutine(Event.CameraShake(0.4f, 30f));
+		StartCoroutine(Event.CameraShake(0.4f, 40f));
 		isFighting = true;
 		anim.SetBool("running",false);
         anim.SetBool("fighting",true);
