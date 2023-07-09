@@ -21,11 +21,11 @@ public class EnemySpawner : MonoBehaviour
          if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("naciśnięte E");
-            SpawnWave(UnityEngine.Random.Range(0, 10),UnityEngine.Random.Range(0, 3));
+            StartCoroutine(SpawnWave(UnityEngine.Random.Range(0, 10),UnityEngine.Random.Range(0, 3), 3));
         }
     }
 
-    public void SpawnWave(int enemyNumber, int spawnNumber)
+    public IEnumerator SpawnWave(int enemyNumber, int spawnNumber, float spawnInterval)
     {
         List<GameObject> selectedEnemies = new List<GameObject>(enemyNumber);
         for (int i = 0; i < enemyNumber; i++)
@@ -33,7 +33,6 @@ public class EnemySpawner : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, enemiesArray.Length);
             selectedEnemies.Add(enemiesArray[randomIndex]);
         }
-
         for (int i = 0; i < spawnNumber; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, spawnContainer.Length);
@@ -42,6 +41,7 @@ public class EnemySpawner : MonoBehaviour
             for (int j = 0; j < enemyNumber; j++)
             {
                 GameObject enemy = Instantiate(selectedEnemies[j], spawnPoint.transform.position, Quaternion.identity, enemyContainer.transform);
+                yield return new WaitForSeconds(spawnInterval);
             }
         }
     }

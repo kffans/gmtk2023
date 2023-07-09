@@ -56,9 +56,11 @@ MonoBehaviour:
   thisRigidbody: {fileID: 2416383371321119725}
   speed: 0
   targetObject: {fileID: 0}
+  isFlipped: 0
   health: 0
   canFollow: 1
   objectsToFollow: []
+  pushResistance: 0
 --- !u!114 &2416383371321119721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +130,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -3.3166504, y: -0.79597473}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -139,7 +141,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 100, y: 100}
+  m_Size: {x: 41.36206, y: 94.16275}
   m_EdgeRadius: 0
 --- !u!50 &2416383371321119725
 Rigidbody2D:
