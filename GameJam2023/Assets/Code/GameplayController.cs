@@ -49,13 +49,13 @@ public class GameplayController : MonoBehaviour
 		while(!StartWave)
 			do{ yield return null; }while(Event.CheckPause());
 		
-		
+		//Music.PlayMusic(2);
 		DisplayText.ChangeDisplayText("Get that foul beast!", 180, new Color32(255, 255, 255, 255));
 		
 		
 		
 		
-		for(int i=0; i<20*60; i++){ //czas az beda uderzac furniture
+		for(int i=0; i<5*60; i++){ //czas az beda uderzac furniture
 			
 			do{ yield return null; }while(Event.CheckPause());
 		}
@@ -73,7 +73,7 @@ public class GameplayController : MonoBehaviour
 		
 
 		
-		for(int i=0; i<30*60; i++){ //czas az beda uderzac furniture
+		for(int i=0; i<10*60; i++){ //czas az beda uderzac furniture
 			EnemyGlobalTarget = ArtObjects;
 			do{ yield return null; }while(Event.CheckPause());
 		}

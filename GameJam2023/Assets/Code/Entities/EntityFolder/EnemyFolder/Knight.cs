@@ -20,8 +20,9 @@ public class Knight : Enemy
     {
         if(newGlobalTarget!=GameplayController.EnemyGlobalTarget)
 		{
+			newGlobalTarget = GameplayController.EnemyGlobalTarget;
 			Debug.Log("AAA");
-			SearchForTarget(GameplayController.EnemyGlobalTarget);
+			SearchForTarget(newGlobalTarget);
 		}
 		
 		if (canFollow)

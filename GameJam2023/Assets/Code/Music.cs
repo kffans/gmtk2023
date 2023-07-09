@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 public class Music : MonoBehaviour
 {
     private AudioSource audioSource;
+    private static AudioSource AAudioSource;
     public Slider volumeSlider;
     public AudioClip[] musicsToPlay;
+	public static AudioClip[] MusicsToPlay;
     public static string stateToPlay = "Menu";
 
     void Awake()
@@ -14,7 +16,8 @@ public class Music : MonoBehaviour
         
         audioSource = GetComponent<AudioSource>();
         SetVolume(50);
-        PlayMusic("Menu");
+		MusicsToPlay = musicsToPlay;
+		AAudioSource = audioSource;
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
         DontDestroyOnLoad(this.gameObject);
     }
@@ -26,45 +29,12 @@ public class Music : MonoBehaviour
             volumeSlider = GameObject.Find("Volume").GetComponent<Slider>();
             volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
         }
-        PlayMusic(SceneManager.GetActiveScene().name);
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public static void PlayMusic(int id)
     {
-        Debug.Log("dupa");
-        if (scene.name == "Menu")
-        {
-            PlayMusic("Menu");
-        }
-        else if (scene.name == "Cave")
-        {
-            PlayMusic("Cave");
-        }
-        else if (scene.name == "Fight")
-        {
-            PlayMusic("Fight");
-        }
-    }
-
-    public void PlayMusic(string state)
-    {
-        if(state == "Menu")
-        {
-            audioSource.clip = musicsToPlay[0];
-            audioSource.Play();
-        }
-        if(state == "Cave")
-        {
-            audioSource.clip = musicsToPlay[1];
-            audioSource.Play();
-        }
-        if(state == "Fight")
-        {
-            audioSource.clip = musicsToPlay[2];
-            audioSource.Play();
-        }
-
-        
+        AAudioSource.clip = MusicsToPlay[id];
+        AAudioSource.Play();
     }
 
     public void StopMusic()
