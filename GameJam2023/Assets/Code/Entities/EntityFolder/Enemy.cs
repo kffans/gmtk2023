@@ -36,7 +36,7 @@ public abstract class Enemy : Entity
 	}
 	
 	public void PushedAway(){
-		Vector2 direction = transform.position - GameObject.Find("Player").transform.position;
+		Vector2 direction = transform.position - GameplayController.PlayerObject.transform.position;
 		Event.Move(this.gameObject, pushResistance, 20, direction);
 		StartCoroutine(WaitForFollow(60));
 	}

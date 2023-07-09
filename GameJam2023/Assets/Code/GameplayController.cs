@@ -12,6 +12,7 @@ public class GameplayController : MonoBehaviour
 	public void Awake()
 	{
 		UpdateArtObjects();
+		PlayerObject = GameObject.Find("Player");
 	}
 
     public void Start()
@@ -31,7 +32,7 @@ public class GameplayController : MonoBehaviour
     public IEnumerator HiddenTimer()
     {
 		yield return new WaitForSeconds(1f);
-		DisplayText.ChangeDisplayText("Ahh, a truly fine day to get a cuppa...! *slurp*", 180, new Color32(252, 161, 3, 255));
+		DisplayText.ChangeDisplayText("Ahh, a truly fine day to get a cuppa...!", 180, new Color32(252, 161, 3, 255));
 		yield return new WaitForSeconds(5f);
 		DisplayText.ChangeDisplayText("Get that bastard!", 180, new Color32(255, 255, 255, 255));
 		

@@ -20,7 +20,7 @@ public class DisplayText : MonoBehaviour
 		ThisDisplay.StartCoroutine(DisplayText.TextFade(length));
 	}
 	private static IEnumerator TextFade(int length){
-		Color change = new Color(0f,0f,0f,1f/20);
+		Color change = new Color(0f,0f,0f,1f/20f);
 		
 		for(int i=0; i<length; i++)
 		{
