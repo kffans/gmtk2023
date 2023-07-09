@@ -7,7 +7,7 @@ public class Knight : Enemy
     void Start()
     {
 		GameplayController.UpdateEnemies();
-		Event.Fade(this.gameObject, 30, 1);
+		Event.Fade(this.gameObject, 10, 1);
 		health=2;
 		speed = 200f;
 		pushResistance = 350f;

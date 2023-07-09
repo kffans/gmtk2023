@@ -13,7 +13,7 @@ public class Menu : MonoBehaviour
 	private static int FrameRate = 60;
 	
 	public void Start(){
-		//Music.PlayMusic(0);
+		Music.PlayMusic(0);
 		Application.targetFrameRate = FrameRate;
 		
 		
@@ -39,7 +39,7 @@ public class Menu : MonoBehaviour
 	
 	public void StartButton(){
 		SceneManager.LoadScene(1);
-		//Music.PlayMusic(1);
+		Music.PlayMusic(1);
 	}
 	
 	public void LeaveButton(){

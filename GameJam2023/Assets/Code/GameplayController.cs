@@ -14,11 +14,14 @@ public class GameplayController : MonoBehaviour
 	public static string EnemyGlobalTargetName;
 	public static bool CanDestroyFurniture=false;
 	public static bool StartWave=false;
+	public GameObject buttonWave;
 	
 	public void Awake()
 	{
 		UpdateArtObjects();
 		PlayerObject[0] = GameObject.Find("Player");
+		buttonWave = GameObject.Find("StartWave");
+		buttonWave.SetActive(false);
 		EnemyGlobalTarget = PlayerObject;
 	}
 
@@ -41,9 +44,12 @@ public class GameplayController : MonoBehaviour
 		StartWave = true;
 		GameObject.Find("StartWave").gameObject.SetActive(false);
 		Event.Fade(GameObject.Find("LHand"), 15, 1);
-		Event.Fade(GameObject.Find("skull1"), 15, 1);
-		Event.Fade(GameObject.Find("skull2"), 15, 1);
-		Event.Fade(GameObject.Find("skull3"), 15, 1);
+		if(GameObject.Find("skull1")!=null)
+			Event.Fade(GameObject.Find("skull1"), 15, 1);
+		if(GameObject.Find("skull2")!=null)
+			Event.Fade(GameObject.Find("skull2"), 15, 1);
+		if(GameObject.Find("skull3")!=null)
+			Event.Fade(GameObject.Find("skull3"), 15, 1);
 		Event.Fade(GameObject.Find("RHand"), 15, 1);
 		Event.Move(GameObject.Find("Score"), 200f, 15, Vector2.down);
 	}
@@ -52,32 +58,35 @@ public class GameplayController : MonoBehaviour
     {
 		yield return new WaitForSeconds(1f);
 		DisplayText.ChangeDisplayText("Ahh, a truly fine day to get a cuppa...!", 180, new Color32(252, 161, 3, 255));
+		yield return new WaitForSeconds(2.5f);
+		buttonWave.SetActive(true);
+		Event.Fade(GameObject.Find("StartWave"), 15, 1);
+		
 		//wait for button
 		while(!StartWave)
 			do{ yield return null; }while(Event.CheckPause());
 		
-		//Music.PlayMusic(2);
+		Music.PlayMusic(2);
 		DisplayText.ChangeDisplayText("Get that foul beast!", 180, new Color32(255, 255, 255, 255));
 		
 		
 		
 		
-		for(int i=0; i<5*60; i++){ //czas az beda uderzac furniture
+		for(int i=0; i<20*60; i++){ //czas az beda uderzac furniture
 			
 			do{ yield return null; }while(Event.CheckPause());
 		}
 		
 
-		//Enemy.ChangeTarget();
 		DisplayText.ChangeDisplayText("Gah! It's invulnerable!!!", 80, new Color32(255, 255, 255, 255));
 		yield return new WaitForSeconds(2f);
 		DisplayText.ChangeDisplayText("Attack its furniture to weaken the monster... emotionally!", 120, new Color32(255, 255, 255, 255)); //at the end the say, "yeah that's a good idea"
 		yield return new WaitForSeconds(3f);
-		DisplayText.ChangeDisplayText("NOOO!!! THAT'S ALL I HAVE!", 120, new Color32(252, 161, 3, 255));
+		DisplayText.ChangeDisplayText("NOOO!!! THAT'S ALL I HAVE!", 150, new Color32(252, 161, 3, 255));
 		
 
 		CanDestroyFurniture=true;
-		for(int i=0; i<10*60; i++){ //czas az beda uderzac furniture
+		for(int i=0; i<20*60; i++){ //czas az beda uderzac furniture
 			EnemyGlobalTarget = ArtObjects;
 			do{ yield return null; }while(Event.CheckPause());
 		}
