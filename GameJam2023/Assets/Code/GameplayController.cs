@@ -55,7 +55,7 @@ public class GameplayController : MonoBehaviour
 		
 		
 		
-		for(int i=0; i<5*60; i++){ //czas az beda uderzac furniture
+		for(int i=0; i<20*60; i++){ //czas az beda uderzac furniture
 			
 			do{ yield return null; }while(Event.CheckPause());
 		}
@@ -67,29 +67,23 @@ public class GameplayController : MonoBehaviour
 		DisplayText.ChangeDisplayText("Attack its furniture to weaken the monster... emotionally!", 120, new Color32(255, 255, 255, 255)); //at the end the say, "yeah that's a good idea"
 		yield return new WaitForSeconds(3f);
 		
+		
 		CanDestroyFurniture=true;
-		EnemyGlobalTarget = ArtObjects;
-		
-		
 		DisplayText.ChangeDisplayText("NOOO!!!", 40, new Color32(252, 161, 3, 255));
-		yield return new WaitForSeconds(2f);
 		
-		if(EnemyObjects.Length != 0){
-			foreach(var enemy in EnemyObjects)
-			{
-				if(enemy.GetComponent<Knight>()!=null)
-				{
-					//enemy.targetObject
-				}
-			}
+
+		
+		for(int i=0; i<30*60; i++){ //czas az beda uderzac furniture
+			EnemyGlobalTarget = ArtObjects;
+			do{ yield return null; }while(Event.CheckPause());
 		}
 		
-		yield return new WaitForSeconds(5f);
+		
 		EnemyGlobalTarget = PlayerObject;
 		DisplayText.ChangeDisplayText("Ugh come on! Snatch its crown! Quick!", 120, new Color32(255, 255, 255, 255));
 		
 		//Event.Blackout();
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(3f);
 		DisplayText.ChangeDisplayText("Want only my crown? Should have said so from the beginning...", 180, new Color32(252, 161, 3, 255));
 		
 		yield return new WaitForSeconds(5f);
